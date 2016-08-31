@@ -28,7 +28,7 @@ defmodule Paasaa.Mixfile do
 
   defp description do
     """
-    Provides language detection functionss
+    Provides language detection functions
     """
   end
 
