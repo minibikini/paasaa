@@ -40,7 +40,7 @@ iex> Paasaa.all("Detect this!")
 
 ## Derivation    
 
-**Paasaa** is a derivative work from [Franc] (JavaScript, MIT) by [Titus Wormer].
+**Paasaa** is a derivative work from [Franc][] (JavaScript, MIT) by [Titus Wormer].
 
 ## License
 
