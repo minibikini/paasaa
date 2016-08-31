@@ -50,7 +50,7 @@ defmodule Paasaa do
   ]
 
   @doc """
-  Detects a language. Returns a string with ISO6393 language code (i.g. "eng").
+  Detects a language. Returns a string with ISO6393 language code (e.g. "eng").
 
   ## Parameters
 
