@@ -1,5 +1,9 @@
 # Paasaa
 
+[![Travis](https://img.shields.io/travis/minibikini/paasaa.svg?maxAge=2592000)](https://travis-ci.org/minibikini/paasaa)
+[![Hex.pm](https://img.shields.io/hexpm/v/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
+[![Hex.pm](https://img.shields.io/hexpm/l/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
+
 Language detection for Elixir
 
 [Api Documentation] | [Hex Package]
