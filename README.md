@@ -53,4 +53,4 @@ iex> Paasaa.all("Detect this!")
 [Franc]: https://github.com/wooorm/franc/
 [Titus Wormer]: http://wooorm.com/
 [mit]: LICENSE
-[Egor Kislitsyn]: https://github/minibikini
+[Egor Kislitsyn]: https://github.com/minibikini
