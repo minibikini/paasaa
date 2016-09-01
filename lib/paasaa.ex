@@ -21,7 +21,7 @@ defmodule Paasaa do
         langs = Enum.map(langs, fn {lang, trigrams} ->
           trigrams = trigrams
           |> String.split("|")
-          |> Enum.with_index()
+          |> Enum.with_index
           |> Enum.into(%{})
 
           {lang, trigrams}
@@ -88,7 +88,7 @@ defmodule Paasaa do
   def detect(str, options \\ @default_options) do
     str
     |> all(options)
-    |> List.first()
+    |> List.first
     |> elem(0)
   end
 
@@ -139,7 +139,7 @@ defmodule Paasaa do
       count == 0 -> und
       Map.has_key?(@languages, script) ->
         str
-        |> get_clean_trigrams()
+        |> get_clean_trigrams
         |> get_distances(@languages[script], options)
         |> normalize(str)
 
@@ -203,7 +203,7 @@ defmodule Paasaa do
   @spec normalize(result, String.t) :: result
   defp normalize([], _str), do: und
   defp normalize(distances, str) do
-    min = distances |> List.first() |> elem(1)
+    min = distances |> List.first |> elem(1)
     max = String.length(str) * @max_difference - min
 
     Enum.map distances, fn({lang, dist}) ->
@@ -218,9 +218,9 @@ defmodule Paasaa do
   @spec get_clean_trigrams(String.t) :: [String.t]
   defp get_clean_trigrams(str) do
     str
-    |> clean()
-    |> pad()
-    |> n_grams()
+    |> clean
+    |> pad
+    |> n_grams
     |> Enum.reduce(%{}, fn(trigram, acc) ->
         count = acc[trigram] && acc[trigram] + 1 || 1
         Map.put(acc, trigram, count)
@@ -235,8 +235,8 @@ defmodule Paasaa do
     str
     |> String.replace(expression_symbols, " ")
     |> String.replace(~r/\s+/, " ")
-    |> String.trim()
-    |> String.downcase()
+    |> String.trim
+    |> String.downcase
   end
 
   defp pad(str), do: " #{str} "
@@ -244,7 +244,7 @@ defmodule Paasaa do
   @spec n_grams(str :: String.t, n :: number) :: [String.t]
   defp n_grams(str, n \\ 3) do
     str
-    |> String.graphemes()
+    |> String.graphemes
     |> Enum.chunk(n, 1)
     |> Enum.map(&Enum.join/1)
   end
