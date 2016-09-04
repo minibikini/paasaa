@@ -4,7 +4,7 @@ defmodule Paasaa.Mixfile do
   def project do
     [
       app: :paasaa,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.3",
       description: description(),
       package: package(),
@@ -25,13 +25,14 @@ defmodule Paasaa.Mixfile do
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:benchfella, "~> 0.3.0", only: :dev},
       {:credo, "~> 0.4", only: [:dev, :test]},
-      {:excoveralls, "~> 0.5", only: :test}
+      {:excoveralls, "~> 0.5", only: :test},
+      {:dialyxir, "~> 0.3.5", only: [:dev]}
     ]
   end
 
   defp description do
     """
-    Provides language detection functions
+    Natural language detection
     """
   end
 
