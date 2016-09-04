@@ -33,7 +33,7 @@ defmodule Paasaa do
 
   @max_difference 300
 
-  @type result :: [{language :: Strinsg.t, score :: number}]
+  @type result :: [{language :: String.t, score :: number}]
 
   @type options :: [
     min_length: integer,
@@ -158,13 +158,9 @@ defmodule Paasaa do
     |> Enum.max_by(fn {_, count} -> count end)
   end
 
-  @spec get_occurrence(str :: String.t, re :: Regex.t, str_len :: number) :: number
+  @spec get_occurrence(str :: String.t, re :: Regex.t, str_len :: non_neg_integer) :: float
   defp get_occurrence(str, re, str_len) do
-    if found = Regex.scan(re, str) do
-      Enum.count(found) / str_len
-    else
-      0
-    end
+    Enum.count(Regex.scan(re, str)) / str_len
   end
 
   @spec get_distances([String.t], Enumerable.t, options) :: result
@@ -215,7 +211,7 @@ defmodule Paasaa do
 
   # trigram stuff
 
-  @spec get_clean_trigrams(String.t) :: [String.t]
+  @spec get_clean_trigrams(String.t) :: result
   defp get_clean_trigrams(str) do
     str
     |> clean
