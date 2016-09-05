@@ -9,27 +9,13 @@ defmodule Paasaa do
 
   """
 
-  @scripts "./priv/scripts.json"
+  @scripts "./priv/scripts.binary"
     |> File.read!
-    |> JSX.decode!
-    |> Enum.map(fn {name, expr} -> {name, Regex.compile!(expr, "u")} end)
+    |> :erlang.binary_to_term
 
-  @languages "./priv/languages.json"
+  @languages "./priv/languages.binary"
     |> File.read!
-    |> JSX.decode!
-    |> Enum.map(fn {script, langs} ->
-        langs = Enum.map(langs, fn {lang, trigrams} ->
-          trigrams = trigrams
-          |> String.split("|")
-          |> Enum.with_index
-          |> Enum.into(%{})
-
-          {lang, trigrams}
-        end)
-
-        {script, langs}
-      end)
-    |> Enum.into(%{})
+    |> :erlang.binary_to_term
 
   @max_difference 300
 
