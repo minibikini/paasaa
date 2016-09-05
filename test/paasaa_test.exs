@@ -119,7 +119,6 @@ defmodule PaasaaTest do
         result = fixtures
         |> Enum.at(@index)
         |> Paasaa.all
-        # |> Enum.take(3)
 
         [{lang_name, _} | _] =  result
 
@@ -129,6 +128,15 @@ defmodule PaasaaTest do
           assert score <= 1 && score >= 0
         end
       end
+    end
+  end
+
+  describe "Mix.Tasks" do
+    test "Mix.Tasks.Paasaa.PrepareLanguages" do
+      shell = Mix.shell
+      Mix.shell(Mix.Shell.Quiet)
+      assert :ok == Mix.Tasks.Paasaa.PrepareLanguages.run([])
+      Mix.shell shell
     end
   end
 end
