@@ -105,7 +105,7 @@ defmodule PaasaaTest do
   end
 
   describe "algorithm" do
-    @support "./priv/support.json"
+    @support "./data/support.json"
       |> File.read!
       |> JSX.decode!
       |> Enum.take(10)
@@ -119,7 +119,7 @@ defmodule PaasaaTest do
         result = fixtures
         |> Enum.at(@index)
         |> Paasaa.all
-        |> Enum.take(3)
+        # |> Enum.take(3)
 
         [{lang_name, _} | _] =  result
 
