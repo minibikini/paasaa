@@ -100,16 +100,15 @@ defmodule Paasaa do
       ]
   """
 
-
   @spec all(str :: String.t, options) :: result
   def all(str, options \\ @default_options)
-  def all("", _), do: und
-  def all(nil, _), do: und
+  def all("", _), do: und()
+  def all(nil, _), do: und()
   def all(str, options) do
     options = Keyword.merge @default_options, options
 
     if String.length(str) < options[:min_length] do
-      und
+      und()
     else
       process(str, options)
     end
@@ -122,7 +121,7 @@ defmodule Paasaa do
     {script, count} = detect_script str
 
     cond do
-      count == 0 -> und
+      count == 0 -> und()
       Map.has_key?(@languages, script) ->
         str
         |> get_clean_trigrams
@@ -183,7 +182,7 @@ defmodule Paasaa do
   end
 
   @spec normalize(result, String.t) :: result
-  defp normalize([], _str), do: und
+  defp normalize([], _str), do: und()
   defp normalize(distances, str) do
     min = distances |> List.first |> elem(1)
     max = String.length(str) * @max_difference - min

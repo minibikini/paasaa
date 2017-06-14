@@ -11,7 +11,7 @@ defmodule PaasaaTest do
   def fixtures, do: @fixtures
 
   test "magic stuff" do
-    assert @magic_language != Paasaa.detect Enum.at fixtures, @magic_number
+    assert @magic_language != Paasaa.detect Enum.at @fixtures, @magic_number
   end
 
   describe "Paasaa.detect" do
@@ -57,7 +57,7 @@ defmodule PaasaaTest do
     end
 
     test "should accept `whitelist`" do
-      result = fixtures
+      result = @fixtures
       |> Enum.at(@magic_number)
       |> Paasaa.detect(whitelist: [@magic_language])
 
@@ -116,7 +116,7 @@ defmodule PaasaaTest do
       @index index
 
       test "should classify #{language["name"]} (#{language["udhr"]})" do
-        result = fixtures
+        result = @fixtures
         |> Enum.at(@index)
         |> Paasaa.all
 

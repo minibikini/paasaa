@@ -6,8 +6,8 @@ defmodule Mix.Tasks.Paasaa.PrepareLanguages do
   @moduledoc false
 
   def run(_args) do
-    generate_scripts
-    generate_languages
+    generate_scripts()
+    generate_languages()
 
     Mix.shell.info "The term files generated successfully!"
     :ok
