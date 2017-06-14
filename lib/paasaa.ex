@@ -69,7 +69,6 @@ defmodule Paasaa do
       "und"
   """
 
-
   @spec detect(str :: String.t, options) :: language :: String.t
   def detect(str, options \\ @default_options) do
     str
