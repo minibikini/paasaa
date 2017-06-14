@@ -39,7 +39,7 @@ defmodule Paasaa.Mixfile do
   defp package do
     [
       name: :paasaa,
-      files: ["lib/paasaa.ex", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
+      files: ["lib/paasaa.ex", "priv", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Egor Kislitsyn"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/minibikini/paasaa"}
