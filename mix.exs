@@ -4,8 +4,8 @@ defmodule Paasaa.Mixfile do
   def project do
     [
       app: :paasaa,
-      version: "0.2.1",
-      elixir: "~> 1.3",
+      version: "0.2.2",
+      elixir: "~> 1.5",
       description: description(),
       package: package(),
       deps: deps(),
