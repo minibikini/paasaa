@@ -10,7 +10,12 @@ defmodule Paasaa.Mixfile do
       package: package(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test]
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -20,7 +25,7 @@ defmodule Paasaa.Mixfile do
 
   defp deps do
     [
-      {:exjsx, "~> 4.0",   only: [:dev, :test]},
+      {:exjsx, "~> 4.0", only: [:dev, :test]},
       {:ex_doc, "~> 0.12", only: :dev},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:benchfella, "~> 0.3.0", only: :dev},
@@ -45,5 +50,4 @@ defmodule Paasaa.Mixfile do
       links: %{"GitHub" => "https://github.com/minibikini/paasaa"}
     ]
   end
-
 end

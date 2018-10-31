@@ -7,15 +7,14 @@ defmodule PaasaaTest do
   @magic_language "pol"
   @some_hebrew "הפיתוח הראשוני בשנות ה־80 התמקד בגנו ובמערכת הגרפית"
 
-  @fixtures "./test/fixtures.json" |> File.read! |> JSX.decode!
+  @fixtures "./test/fixtures.json" |> File.read!() |> JSX.decode!()
   def fixtures, do: @fixtures
 
   test "magic stuff" do
-    assert @magic_language != Paasaa.detect Enum.at @fixtures, @magic_number
+    assert @magic_language != Paasaa.detect(Enum.at(@fixtures, @magic_number))
   end
 
   describe "Paasaa.detect" do
-
     test "should work on unique-scripts with many latin characters" do
       fixture = "한국어 문서가 전 세계 웹에서 차지하는 비중은 2004년에 4.1%로,
       이는 영어(35.8%), 중국어(14.1%), 일본어(9.6%), 스페인어(9%), 독일어(7%)에
@@ -51,92 +50,92 @@ defmodule PaasaaTest do
     test "should accept `blacklist`" do
       str = @fixtures |> Enum.at(@magic_number)
 
-      language = Paasaa.detect str
+      language = Paasaa.detect(str)
 
       assert Paasaa.detect(str, blacklist: [language]) != language
     end
 
     test "should accept `whitelist`" do
-      result = @fixtures
-      |> Enum.at(@magic_number)
-      |> Paasaa.detect(whitelist: [@magic_language])
+      result =
+        @fixtures
+        |> Enum.at(@magic_number)
+        |> Paasaa.detect(whitelist: [@magic_language])
 
       assert result == @magic_language
     end
 
     test "should accept `whitelist` for different scripts" do
-      result = Paasaa.detect @some_hebrew, whitelist: ["eng"]
+      result = Paasaa.detect(@some_hebrew, whitelist: ["eng"])
       assert result == "und"
     end
 
     test "should accept `:min_length`" do
-      result = Paasaa.detect "the", min_length: 3
+      result = Paasaa.detect("the", min_length: 3)
       assert result == "sco"
 
-      result = Paasaa.detect "the", min_length: 4
+      result = Paasaa.detect("the", min_length: 4)
       assert result == "und"
     end
-
   end
 
   describe "Paasaa.all" do
     test "should return a list containing language--probability tuples" do
-      result = Paasaa.all ""
+      result = Paasaa.all("")
       assert result |> is_list
 
       [first_element | _] = result
       assert first_element |> is_tuple
 
-      {lang, score} = Enum.at result, 0
+      {lang, score} = Enum.at(result, 0)
 
       assert lang |> is_binary
       assert score |> is_number
     end
 
     test ~s(should return `[{"und", 1}]` for generic characters) do
-      assert [{"und", 1}] = Paasaa.all "987 654 321"
+      assert [{"und", 1}] = Paasaa.all("987 654 321")
     end
 
     test "should work on weird values" do
       result = Paasaa.all("the the the the the ") |> Enum.take(2)
       assert [{"sco", _}, {"eng", _}] = result
     end
-
   end
 
   describe "algorithm" do
     @support "./data/support.json"
-      |> File.read!
-      |> JSX.decode!
-      |> Enum.take(10)
-      |> Enum.with_index
+             |> File.read!()
+             |> JSX.decode!()
+             |> Enum.take(10)
+             |> Enum.with_index()
 
-    Enum.each @support, fn({language, index}) ->
+    Enum.each(@support, fn {language, index} ->
       @language language
       @index index
 
       test "should classify #{language["name"]} (#{language["udhr"]})" do
-        result = @fixtures
-        |> Enum.at(@index)
-        |> Paasaa.all
+        result =
+          @fixtures
+          |> Enum.at(@index)
+          |> Paasaa.all()
 
-        [{lang_name, _} | _] =  result
+        [{lang_name, _} | _] = result
 
         assert lang_name == @language["iso6393"]
 
-        Enum.each result, fn {_, score} ->
+        Enum.each(result, fn {_, score} ->
           assert score <= 1 && score >= 0
-        end
+        end)
       end
-    end
+    end)
   end
 
   describe "Mix.Tasks" do
     test "Mix.Tasks.Paasaa.PrepareLanguages" do
-      shell = Mix.shell
+      shell = Mix.shell()
       Mix.shell(Mix.Shell.Quiet)
       assert :ok == Mix.Tasks.Paasaa.PrepareLanguages.run([])
-      Mix.shell shell
+      Mix.shell(shell)
     end
   end
 end
