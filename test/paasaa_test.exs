@@ -75,6 +75,9 @@ defmodule PaasaaTest do
 
       result = Paasaa.detect("the", min_length: 4)
       assert result == "und"
+
+      result = Paasaa.detect("Привет", min_length: 6)
+      assert result == "rus"
     end
   end
 
