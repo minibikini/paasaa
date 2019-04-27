@@ -106,7 +106,7 @@ defmodule PaasaaTest do
   end
 
   describe "algorithm" do
-    @support "./data/support.json"
+    @support "./priv/support.json"
              |> File.read!()
              |> JSX.decode!()
              |> Enum.take(10)
@@ -131,14 +131,5 @@ defmodule PaasaaTest do
         end)
       end
     end)
-  end
-
-  describe "Mix.Tasks" do
-    test "Mix.Tasks.Paasaa.PrepareLanguages" do
-      shell = Mix.shell()
-      Mix.shell(Mix.Shell.Quiet)
-      assert :ok == Mix.Tasks.Paasaa.PrepareLanguages.run([])
-      Mix.shell(shell)
-    end
   end
 end

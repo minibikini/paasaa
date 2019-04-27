@@ -9,13 +9,9 @@ defmodule Paasaa do
 
   """
 
-  @scripts "./priv/scripts.binary"
-           |> File.read!()
-           |> :erlang.binary_to_term()
+  @scripts Paasaa.Data.scripts()
 
-  @languages "./priv/languages.binary"
-             |> File.read!()
-             |> :erlang.binary_to_term()
+  @languages Paasaa.Data.languages()
 
   @max_difference 300
 

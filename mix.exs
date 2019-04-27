@@ -25,7 +25,7 @@ defmodule Paasaa.Mixfile do
 
   defp deps do
     [
-      {:exjsx, "~> 4.0", only: [:dev, :test]},
+      {:exjsx, "~> 4.0"},
       {:ex_doc, "~> 0.12", only: :dev},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:benchfella, "~> 0.3.0", only: :dev},
