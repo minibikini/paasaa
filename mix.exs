@@ -4,7 +4,7 @@ defmodule Paasaa.Mixfile do
   def project do
     [
       app: :paasaa,
-      version: "0.2.2",
+      version: "0.3.0",
       elixir: "~> 1.7",
       description: description(),
       package: package(),

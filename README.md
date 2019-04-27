@@ -15,7 +15,7 @@ Add `paasaa` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:paasaa, "~> 0.2.2"}]
+  [{:paasaa, "~> 0.3.0"}]
 end
 ```
 
@@ -43,7 +43,7 @@ iex> Paasaa.all("Detect this!")
 ]
 ```
 
-## Derivation    
+## Derivation
 
 **Paasaa** is a derivative work from [Franc][] (JavaScript, MIT) by [Titus Wormer].
 
