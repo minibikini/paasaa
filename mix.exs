@@ -15,6 +15,15 @@ defmodule Paasaa.Mixfile do
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
+      ],
+      # Docs
+      name: "Paasaa",
+      source_url: "https://github.com/minibikini/paasaa",
+      homepage_url: "https://github.com/minibikini/paasaa",
+      docs: [
+        # The main page in the docs
+        main: "Paasaa",
+        extras: ["README.md"]
       ]
     ]
   end
