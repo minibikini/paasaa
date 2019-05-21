@@ -1,30 +1,24 @@
 defmodule BasicBench do
   use Benchfella
 
-  # @list Enum.to_list(1..1000)
-  @fixtures "./test/fixtures.json"
-    |> File.read!
-    |> JSX.decode!
+  @fixtures "./test/fixtures/samples.json" |> File.read!() |> Jason.decode!()
 
-  @support "./priv/support.json"
-    |> File.read!
-    |> JSX.decode!
-    |> Enum.take(10)
-    |> Enum.with_index()
+  @english_short @fixtures |> Map.fetch!("eng") |> Map.fetch!("fixture")
+  @english_long File.read!("./bench/fixtures/english.txt")
 
-  Enum.each @support, fn({language, index}) ->
-    @language language
-    @index index
-    @input Enum.at(@fixtures, @index)
+  fixtures_to_bench = @fixtures |> Enum.take(10) |> Enum.into(%{})
 
-    bench "[#{index}] #{language["name"]} (#{language["udhr"]})" do
-      Paasaa.detect(@input)
+  for {variant, %{"iso6393" => iso6393, "fixture" => fixture}} <- fixtures_to_bench do
+    @fixture fixture
+
+    bench "detect/2: #{iso6393} (#{variant})" do
+      Paasaa.detect(@fixture)
+    end
+
+    bench "list_language_probabilities/2: #{iso6393} (#{variant})" do
+      Paasaa.list_language_probabilities(@fixture)
     end
   end
-
-  @english_short Enum.at(@fixtures, 2)
-
-  @english_long File.read! "./bench/english.txt"
 
   bench "English (Short Text)" do
     Paasaa.detect(@english_short)
@@ -33,15 +27,4 @@ defmodule BasicBench do
   bench "English (Long Text)" do
     Paasaa.detect(@english_long)
   end
-
-  bench "detect_script English (Short Text)" do
-    Paasaa.detect_script(@english_short)
-  end
-
-  @english_max String.slice(@english_long, 0, 2048)
-
-  bench "detect_script English (Long Text)" do
-    Paasaa.detect_script(@english_max)
-  end
-
 end

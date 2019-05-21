@@ -1,91 +1,108 @@
 defmodule Paasaa do
   @moduledoc """
-  Provides language detection functions
-
-  ## Examples
-
-      iex> Paasaa.detect "Detect this!"
-      "eng"
-
+  Detects language by analyzing symbol patterns and trigram occurrence in a string.
   """
 
-  @scripts Paasaa.Data.scripts()
+  @script_expressions Paasaa.Data.fetch_script_expressions!()
 
-  @languages Paasaa.Data.languages()
+  @trigrams Paasaa.Data.fetch_trigrams!()
+
+  @languages Paasaa.Data.fetch_languages!()
 
   @max_difference 300
 
-  @type result :: [{language :: String.t(), score :: number}]
-
   @type options :: [
-          min_length: integer,
-          max_length: integer,
-          whitelist: [String.t()],
-          blacklist: [String.t()]
+          min_length: non_neg_integer(),
+          max_length: non_neg_integer(),
+          only: [String.t()],
+          ignore: [String.t()]
         ]
 
   @default_options [
     min_length: 10,
     max_length: 2048,
-    whitelist: [],
-    blacklist: []
+    only: [],
+    ignore: []
   ]
 
   @doc """
-  Detects a language. Returns a string with ISO6393 language code (e.g. "eng").
+  Detects a language. Returns a `Paasaa.Language` struct.
 
-  ## Parameters
+  ## Options
 
-    - `str` - a text string
-    - `options` - a keyword list with options:
-      - `:min_length` - If the text is shorter than `:min_length` it will return `und`. Default: `10`.
-      - `:max_length` - Maximum length to analyze. Default: `2048`.
-      - `:whitelist` - Allow languages. Default: `[]`.
-      - `:blacklist` - Disallow languages. Default: `[]`.
+    - `:min_length` - If the text is shorter than `:min_length` it will return `:error`. Default: `10`.
+    - `:max_length` - Maximum length to analyze. Default: `2048`.
+    - `:only` - Use only this ISO-639-3 language codes for recognition. Default: `[]`.
+    - `:ignore` - Skip ISO-639-3 language codes from recognition. Default: `[]`.
 
   ## Examples
 
   Detect a string:
 
-      iex> Paasaa.detect "Detect this!"
-      "eng"
+      iex> Paasaa.detect("Detect this!")
+      {:ok, %Paasaa.Language{
+        iso6393: "eng",
+        name: "English",
+        iso6391: "en",
+        iso6392B: "eng",
+        iso6392T: "eng",
+        scope: "individual",
+        type: "living"
+      }}
 
-  With the `:blacklist` option:
+  With the `:ignore` option:
 
-      iex> Paasaa.detect "Detect this!", blacklist: ["eng"]
-      "sco"
+      iex> Paasaa.detect("Detect this!", ignore: ["eng"])
+      {:ok, %Paasaa.Language{
+        iso6391: nil,
+        iso6393: "sco",
+        name: "Scots",
+        iso6392B: "sco",
+        iso6392T: "sco",
+        scope: "individual",
+        type: "living"
+      }}
 
   With the `:min_length` option:
 
-      iex> Paasaa.detect "Привет", min_length: 6
-      "rus"
+      iex> Paasaa.detect("Привет", min_length: 6)
+      {:ok, %Paasaa.Language{
+        iso6393: "rus",
+        name: "Russian",
+        iso6391: "ru",
+        iso6392B: "rus",
+        iso6392T: "rus",
+        scope: "individual",
+        type: "living"
+      }}
 
-  It returns `und` for undetermined language:
-      iex> Paasaa.detect "1234567890"
-      "und"
+  It returns `:error` for undetermined language:
+
+      iex> Paasaa.detect("1234567890")
+      :error
   """
+  @spec detect(string :: String.t(), options :: options()) :: {:ok, Paasaa.Language.t()} | :error
+  def detect(string, options \\ @default_options) do
+    case list_language_probabilities(string, options) do
+      [{iso6393, _weight} | _] ->
+        {:ok, Map.fetch!(@languages, iso6393)}
 
-  @spec detect(str :: String.t(), options) :: language :: String.t()
-  def detect(str, options \\ @default_options) do
-    str
-    |> all(options)
-    |> List.first()
-    |> elem(0)
+      [] ->
+        :error
+    end
   end
 
   @doc """
-  Detects a language. Returns a list of languages scored by probability.
+  Detects a language. Returns a list of ISO-639-3 language codes and probability for each language.
+  Returns empty list if language can not be detected.
 
-  ## Parameters
-
-    - `str` - a text string
-    - `options` - a keyword list with options, see `detect/2` for details.
+  For list of available options see `detect/2` for details.
 
   ## Examples
 
   Detect language and limit results to 5:
 
-      iex> Paasaa.all("Detect this!") |> Enum.take(5)
+      iex> Paasaa.list_language_probabilities("Detect this!") |> Enum.take(5)
       [
         {"eng", 1.0},
         {"sco", 0.8668304668304668},
@@ -93,65 +110,82 @@ defmodule Paasaa do
         {"swe", 0.5921375921375922},
         {"nno", 0.5518427518427518}
       ]
+
+      iex> Paasaa.list_language_probabilities(nil)
+      []
+
+      iex> Paasaa.list_language_probabilities("")
+      []
   """
 
-  @spec all(str :: String.t(), options) :: result
-  def all(str, options \\ @default_options)
-  def all("", _), do: und()
-  def all(nil, _), do: und()
+  @spec list_language_probabilities(string :: String.t(), options()) :: [
+          {language_iso6393_code :: String.t(), weight :: number()}
+        ]
+  def list_language_probabilities(string, options \\ @default_options)
 
-  def all(str, options) do
+  def list_language_probabilities("", _), do: []
+
+  def list_language_probabilities(nil, _), do: []
+
+  def list_language_probabilities(string, options) do
     options = Keyword.merge(@default_options, options)
 
-    if String.length(str) < options[:min_length] do
-      und()
+    if String.length(string) < options[:min_length] do
+      []
     else
-      process(str, options)
+      string = String.slice(string, 0, options[:max_length])
+      language_probabilities(string, options)
     end
   end
 
-  @spec process(str :: String.t(), options) :: result
-  defp process(str, options) do
-    str = String.slice(str, 0, options[:max_length])
-
-    {script, count} = detect_script(str)
+  @spec language_probabilities(string :: String.t(), options()) :: [
+          {language_iso6393_code :: String.t(), weight :: number()}
+        ]
+  defp language_probabilities(string, options) do
+    {script, weight} = get_most_probable_script(string)
 
     cond do
-      count == 0 ->
-        und()
+      weight == 0 ->
+        []
 
-      Map.has_key?(@languages, script) ->
-        str
-        |> get_clean_trigrams
-        |> get_distances(@languages[script], options)
-        |> normalize(str)
+      trigrams = Map.get(@trigrams, script) ->
+        string
+        |> get_clean_trigrams()
+        |> get_distances(trigrams, options)
+        |> normalize(string)
 
       true ->
         [{script, 1}]
     end
   end
 
-  defp und, do: [{"und", 1}]
+  @spec get_most_probable_script(string :: String.t()) ::
+          {script_or_language_iso6393_code :: String.t(), number()}
+  defp get_most_probable_script(string) do
+    string_length = String.length(string)
 
-  @spec detect_script(str :: String.t()) :: {String.t(), number}
-  defp detect_script(str) do
-    len = String.length(str)
-
-    @scripts
-    |> Enum.map(fn {name, re} -> {name, get_occurrence(str, re, len)} end)
-    |> Enum.max_by(fn {_, count} -> count end)
+    @script_expressions
+    |> Enum.map(fn {name, regexp} -> {name, get_occurrence(string, regexp, string_length)} end)
+    |> Enum.max_by(fn {_name, weight} -> weight end)
   end
 
-  @spec get_occurrence(str :: String.t(), re :: Regex.t(), str_len :: non_neg_integer) :: float
-  defp get_occurrence(str, re, str_len) do
-    Enum.count(Regex.scan(re, str)) / str_len
+  @spec get_occurrence(
+          string :: String.t(),
+          regexp :: Regex.t(),
+          string_length :: non_neg_integer()
+        ) ::
+          float()
+  defp get_occurrence(string, regexp, string_length) do
+    Enum.count(Regex.scan(regexp, string)) / string_length
   end
 
-  @spec get_distances([String.t()], Enumerable.t(), options) :: result
+  @spec get_distances([String.t()], Enumerable.t(), options()) :: [
+          {language_iso6393_code :: String.t(), weight :: number()}
+        ]
   defp get_distances(trigrams, languages, options) do
     languages
     |> filter_languages(options)
-    |> Enum.map(fn {lang, model} -> {lang, get_distance(trigrams, model)} end)
+    |> Enum.map(fn {language, model} -> {language, get_distance(trigrams, model)} end)
     |> Enum.sort(&(elem(&1, 1) < elem(&2, 1)))
   end
 
@@ -169,24 +203,40 @@ defmodule Paasaa do
 
   @spec filter_languages([String.t()], Enumerable.t()) :: Enumerable.t()
   defp filter_languages(languages, options) do
-    white = options[:whitelist]
-    black = options[:blacklist]
+    allow = options[:only]
+    ignore = options[:ignore]
 
-    if Enum.empty?(white) && Enum.empty?(black) do
+    if allow == [] and ignore == [] do
       languages
     else
-      Enum.filter(languages, fn {lang, _} ->
-        (Enum.empty?(white) || Enum.member?(white, lang)) && !Enum.member?(black, lang)
+      Enum.filter(languages, fn {language, _weight} ->
+        language_allowed?(language, allow, ignore)
       end)
     end
   end
 
-  @spec normalize(result, String.t()) :: result
-  defp normalize([], _str), do: und()
+  defp language_allowed?(_language_or_script, [], []) do
+    true
+  end
 
-  defp normalize(distances, str) do
+  defp language_allowed?(language_or_script, [], ignore) do
+    language_or_script not in ignore
+  end
+
+  defp language_allowed?(language_or_script, only, ignore) do
+    onlyed? = language_or_script in only
+    ignored? = language_or_script in ignore
+    onlyed? and not ignored?
+  end
+
+  @spec normalize([{script_or_language_iso6393_code :: String.t(), number()}], String.t()) :: [
+          {script_or_language_iso6393_code :: String.t(), number()}
+        ]
+  defp normalize([], _str), do: []
+
+  defp normalize(distances, string) do
     min = distances |> List.first() |> elem(1)
-    max = String.length(str) * @max_difference - min
+    max = String.length(string) * @max_difference - min
 
     Enum.map(distances, fn {lang, dist} ->
       dist =
@@ -200,37 +250,35 @@ defmodule Paasaa do
     end)
   end
 
-  # trigram stuff
-
-  @spec get_clean_trigrams(String.t()) :: result
-  defp get_clean_trigrams(str) do
-    str
-    |> clean
-    |> pad
-    |> n_grams
+  @spec get_clean_trigrams(String.t()) :: [
+          {script_or_language_iso6393_code :: String.t(), number()}
+        ]
+  defp get_clean_trigrams(string) do
+    string
+    |> clean()
+    |> pad()
+    |> n_grams()
     |> Enum.reduce(%{}, fn trigram, acc ->
-      count = (acc[trigram] && acc[trigram] + 1) || 1
-      Map.put(acc, trigram, count)
+      weight = (acc[trigram] && acc[trigram] + 1) || 1
+      Map.put(acc, trigram, weight)
     end)
     |> Map.to_list()
   end
 
-  @spec clean(str :: String.t()) :: String.t()
-  defp clean(str) do
-    expression_symbols = ~r/[\x{0021}-\x{0040}]+/u
-
-    str
-    |> String.replace(expression_symbols, " ")
-    |> String.replace(~r/\s+/, " ")
+  @spec clean(string :: String.t()) :: String.t()
+  defp clean(string) do
+    string
+    |> String.replace(~r/[\x{0021}-\x{0040}]+/u, " ", global: true)
+    |> String.replace(~r/\s+/u, " ", global: true)
     |> String.trim()
     |> String.downcase()
   end
 
-  defp pad(str), do: " #{str} "
+  defp pad(string), do: " #{string} "
 
-  @spec n_grams(str :: String.t(), n :: number) :: [String.t()]
-  defp n_grams(str, n \\ 3) do
-    str
+  @spec n_grams(string :: String.t(), n :: number) :: [String.t()]
+  defp n_grams(string, n \\ 3) do
+    string
     |> String.graphemes()
     |> Enum.chunk_every(n, 1, :discard)
     |> Enum.map(&Enum.join/1)
