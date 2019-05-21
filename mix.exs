@@ -4,8 +4,8 @@ defmodule Paasaa.Mixfile do
   def project do
     [
       app: :paasaa,
-      version: "0.3.1",
-      elixir: "~> 1.7",
+      version: "1.0.0",
+      elixir: "~> 1.8",
       description: description(),
       package: package(),
       deps: deps(),
@@ -44,7 +44,7 @@ defmodule Paasaa.Mixfile do
 
   defp description do
     """
-    Natural language detection
+    Natural language detection in pure Elixir with built-in support for 187 languages.
     """
   end
 
