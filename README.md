@@ -9,6 +9,7 @@ Natural language detection for Elixir. Built with support for 187 languages (1M 
 
 ## Features
 
+- When other ports return just ISO-639-3 codes, Paasaa additionally returns ISO-639-2B, ISO-639-2T, ISO-639-1 and language name (when available);
 - Battle-proven algorithm and data that are based on [Franc][] and ported to number of other languages;
 - 100% test coverage. Test suite checks recognition for text translated to 187 languages;
 - minimum number of dependencies (just Jason).
