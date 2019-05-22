@@ -1,0 +1,11 @@
+{
+  "skip_files": [
+    "lib/paasaa/data.ex",
+    "test/*",
+    "priv/*"
+  ],
+  "coverage_options": {
+    "treat_no_relevant_lines_as_covered": true,
+    "output_dir": "cover/"
+  }
+}
