@@ -18,13 +18,6 @@ defmodule Paasaa do
           ignore: [String.t()]
         ]
 
-  @default_options [
-    min_length: 10,
-    max_length: 2048,
-    only: [],
-    ignore: []
-  ]
-
   @doc """
   Detects a language. Returns a `Paasaa.Language` struct.
 
@@ -82,7 +75,7 @@ defmodule Paasaa do
       :error
   """
   @spec detect(string :: String.t(), options :: options()) :: {:ok, Paasaa.Language.t()} | :error
-  def detect(string, options \\ @default_options) do
+  def detect(string, options \\ []) do
     case list_language_probabilities(string, options) do
       [{iso6393, _weight} | _] ->
         {:ok, Map.fetch!(@languages, iso6393)}
@@ -121,19 +114,20 @@ defmodule Paasaa do
   @spec list_language_probabilities(string :: String.t(), options()) :: [
           {language_iso6393_code :: String.t(), weight :: number()}
         ]
-  def list_language_probabilities(string, options \\ @default_options)
+  def list_language_probabilities(string, options \\ [])
 
   def list_language_probabilities("", _), do: []
 
   def list_language_probabilities(nil, _), do: []
 
   def list_language_probabilities(string, options) do
-    options = Keyword.merge(@default_options, options)
+    min_length = Keyword.get(options, :min_length, 10)
+    max_length = Keyword.get(options, :max_length, 2048)
 
-    if String.length(string) < options[:min_length] do
+    if String.length(string) < min_length do
       []
     else
-      string = String.slice(string, 0, options[:max_length])
+      string = String.slice(string, 0, max_length)
       language_probabilities(string, options)
     end
   end
@@ -203,8 +197,8 @@ defmodule Paasaa do
 
   @spec filter_languages([String.t()], Enumerable.t()) :: Enumerable.t()
   defp filter_languages(languages, options) do
-    allow = options[:only]
-    ignore = options[:ignore]
+    allow = Keyword.get(options, :only, [])
+    ignore = Keyword.get(options, :ignore, [])
 
     if allow == [] and ignore == [] do
       languages
