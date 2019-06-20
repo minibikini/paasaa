@@ -9,6 +9,7 @@ defmodule Paasaa.Mixfile do
       description: description(),
       package: package(),
       deps: deps(),
+      elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
@@ -34,7 +35,7 @@ defmodule Paasaa.Mixfile do
 
   defp deps do
     [
-      {:exjsx, "~> 4.0"},
+      {:exjsx, "~> 4.0", only: :dev},
       {:ex_doc, "~> 0.12", only: :dev},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:benchfella, "~> 0.3.0", only: :dev},
@@ -43,6 +44,11 @@ defmodule Paasaa.Mixfile do
       {:dialyxir, "~> 0.5.0", only: [:dev]}
     ]
   end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp description do
     """

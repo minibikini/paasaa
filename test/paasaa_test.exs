@@ -7,11 +7,10 @@ defmodule PaasaaTest do
   @magic_language "pol"
   @some_hebrew "הפיתוח הראשוני בשנות ה־80 התמקד בגנו ובמערכת הגרפית"
 
-  @fixtures "./test/fixtures.json" |> File.read!() |> JSX.decode!()
-  def fixtures, do: @fixtures
+  def fixtures, do: Paasaa.Support.Fixtures.fixtures()
 
   test "magic stuff" do
-    assert @magic_language != Paasaa.detect(Enum.at(@fixtures, @magic_number))
+    assert @magic_language != Paasaa.detect(Enum.at(fixtures(), @magic_number))
   end
 
   describe "Paasaa.detect" do
@@ -48,7 +47,7 @@ defmodule PaasaaTest do
     end
 
     test "should accept `blacklist`" do
-      str = @fixtures |> Enum.at(@magic_number)
+      str = fixtures() |> Enum.at(@magic_number)
 
       language = Paasaa.detect(str)
 
@@ -57,7 +56,7 @@ defmodule PaasaaTest do
 
     test "should accept `whitelist`" do
       result =
-        @fixtures
+        fixtures()
         |> Enum.at(@magic_number)
         |> Paasaa.detect(whitelist: [@magic_language])
 
@@ -106,9 +105,7 @@ defmodule PaasaaTest do
   end
 
   describe "algorithm" do
-    @support "./priv/support.json"
-             |> File.read!()
-             |> JSX.decode!()
+    @support Paasaa.Support.Fixtures.support()
              |> Enum.take(10)
              |> Enum.with_index()
 
@@ -118,7 +115,7 @@ defmodule PaasaaTest do
 
       test "should classify #{language["name"]} (#{language["udhr"]})" do
         result =
-          @fixtures
+          fixtures()
           |> Enum.at(@index)
           |> Paasaa.all()
 
