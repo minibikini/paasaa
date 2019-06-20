@@ -2,16 +2,12 @@ defmodule Paasaa.Data do
   @moduledoc false
 
   def scripts do
-    "./priv/scripts.json"
-    |> File.read!()
-    |> JSX.decode!()
+    Paasaa.Scripts.get()
     |> Enum.map(fn {name, expr} -> {name, Regex.compile!(expr, "u")} end)
   end
 
   def languages do
-    "./priv/languages.json"
-    |> File.read!()
-    |> JSX.decode!()
+    Paasaa.Languages.get()
     |> Enum.map(&parse_trigrams/1)
     |> Enum.into(%{})
   end
