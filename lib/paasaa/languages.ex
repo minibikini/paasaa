@@ -1,4 +1,6 @@
 defmodule Paasaa.Languages do
+  @moduledoc false
+
   @data %{
     "Arabic" => %{
       "arb" =>
