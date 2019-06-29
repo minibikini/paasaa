@@ -38,7 +38,7 @@ defmodule Paasaa.Mixfile do
       {:ex_doc, "~> 0.12", only: :dev},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:benchfella, "~> 0.3.0", only: :dev},
-      {:credo, "~> 1.0.5", only: [:dev, :test]},
+      {:credo, "~> 1.1.0", only: [:dev, :test]},
       {:excoveralls, "~> 0.5", only: :test},
       {:dialyxir, "~> 0.5.0", only: [:dev]}
     ]
