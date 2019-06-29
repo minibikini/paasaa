@@ -4,7 +4,7 @@ defmodule Paasaa.Mixfile do
   def project do
     [
       app: :paasaa,
-      version: "0.3.1",
+      version: "0.4.0",
       elixir: "~> 1.7",
       description: description(),
       package: package(),
@@ -58,7 +58,7 @@ defmodule Paasaa.Mixfile do
   defp package do
     [
       name: :paasaa,
-      files: ["lib/paasaa.ex", "lib/paasaa/data.ex", "priv", "mix.exs", "README*", "LICENSE*"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Egor Kislitsyn"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/minibikini/paasaa"}
