@@ -134,7 +134,7 @@ defmodule Paasaa do
   defp und, do: [{"und", 1}]
 
   @spec detect_script(str :: String.t()) :: {String.t(), number}
-  defp detect_script(str) do
+  def detect_script(str) do
     len = String.length(str)
 
     @scripts

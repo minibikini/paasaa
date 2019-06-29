@@ -129,4 +129,9 @@ defmodule PaasaaTest do
       end
     end)
   end
+
+  test "detect_script/1" do
+    text = "ყველა ადამიანი იბადება თავისუფალი და თანასწორი თავისი ღირსებითა და უფლებებით"
+    assert {"kat", _} = Paasaa.detect_script(text)
+  end
 end
