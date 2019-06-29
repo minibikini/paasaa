@@ -12,6 +12,8 @@ defmodule Paasaa.DataTest do
     latin = languages["Latin"]
 
     assert is_list(latin)
-    assert [{"ace", %{}} | _] = latin
+    assert [{lang, %{}} | _] = latin
+    assert is_binary(lang)
+    assert String.length(lang) == 3
   end
 end
