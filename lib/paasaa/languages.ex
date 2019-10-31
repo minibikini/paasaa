@@ -320,7 +320,5 @@ defmodule Paasaa.Languages do
     }
   }
 
-  def get() do
-    @data
-  end
+  def get, do: @data
 end

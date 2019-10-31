@@ -1,13 +1,15 @@
 defmodule PaasaaTest do
   use ExUnit.Case, async: true
 
+  alias Paasaa.Support.Fixtures
+
   doctest Paasaa
 
   @magic_number 41
   @magic_language "pol"
   @some_hebrew "הפיתוח הראשוני בשנות ה־80 התמקד בגנו ובמערכת הגרפית"
 
-  def fixtures, do: Paasaa.Support.Fixtures.fixtures()
+  def fixtures, do: Fixtures.fixtures()
 
   test "magic stuff" do
     assert @magic_language != Paasaa.detect(Enum.at(fixtures(), @magic_number))
@@ -105,7 +107,7 @@ defmodule PaasaaTest do
   end
 
   describe "algorithm" do
-    @support Paasaa.Support.Fixtures.support()
+    @support Fixtures.support()
              |> Enum.take(10)
              |> Enum.with_index()
 

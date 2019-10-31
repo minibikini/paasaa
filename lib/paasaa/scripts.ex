@@ -37,7 +37,5 @@ defmodule Paasaa.Scripts do
     "tha" => "[ก-ฺเ-๛]"
   }
 
-  def get() do
-    @data
-  end
+  def get, do: @data
 end
