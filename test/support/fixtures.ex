@@ -180,9 +180,7 @@ defmodule Paasaa.Support.Fixtures do
     "Dikhindor so o prinzaripen e manuśenqe somandrune demnimnasqoro thaj e barabar aj bixasaraver hakaja savorre zenenqere and-i manuśikani famělia si i bàza e mestimnasqi, e ćaće krisaqi aj e aćhõmnasqi "
   ]
 
-  def fixtures() do
-    @data
-  end
+  def fixtures, do: @data
 
   @support_data [
     %{
@@ -1419,7 +1417,5 @@ defmodule Paasaa.Support.Fixtures do
     }
   ]
 
-  def support() do
-    @support_data
-  end
+  def support, do: @support_data
 end
