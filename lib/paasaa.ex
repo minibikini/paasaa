@@ -133,6 +133,19 @@ defmodule Paasaa do
     end
   end
 
+  @doc """
+  Detects a script.
+
+  ## Parameters
+
+    - `str` - a text string
+
+  ## Examples
+
+      iex> Paasaa.detect_script("Detect this!")
+      {"Latin", 0.8333333333333334}
+  """
+
   @spec detect_script(str :: String.t()) :: {String.t(), number}
   def detect_script(str) do
     len = String.length(str)

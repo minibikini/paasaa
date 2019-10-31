@@ -7,7 +7,7 @@
 
 Natural language detection for Elixir
 
-[Api Documentation] | [Hex Package]
+[API Documentation] | [Hex Package]
 
 ## Installation
 
@@ -15,7 +15,7 @@ Add `paasaa` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:paasaa, "~> 0.4.0"}]
+  [{:paasaa, "~> 0.5.0"}]
 end
 ```
 
@@ -41,6 +41,12 @@ iex> Paasaa.all("Detect this!")
   {"swe", 0.5921375921375922},
   ...
 ]
+```
+
+## Benchmark
+
+```shell
+mix bench
 ```
 
 ## Update Language Data
