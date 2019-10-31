@@ -43,6 +43,12 @@ iex> Paasaa.all("Detect this!")
 ]
 ```
 
+## Update Language Data
+
+```shell
+mix run script/generate_language_data.ex
+```
+
 ## Derivation
 
 **Paasaa** is a derivative work from [Franc][] (JavaScript, MIT) by [Titus Wormer].

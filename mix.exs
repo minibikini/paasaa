@@ -40,6 +40,8 @@ defmodule Paasaa.Mixfile do
       {:benchfella, "~> 0.3.0", only: :dev},
       {:credo, "~> 1.1.0", only: [:dev, :test]},
       {:excoveralls, "~> 0.5", only: :test},
+      {:jsx, "~> 2.10", only: :dev},
+      {:tesla, "~> 1.3.0", only: :dev},
       {:dialyxir, "~> 0.5.0", only: [:dev]}
     ]
   end
