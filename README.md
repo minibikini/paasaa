@@ -1,6 +1,6 @@
 # Paasaa
 
-[![Travis](https://img.shields.io/travis/minibikini/paasaa.svg?maxAge=2592000)](https://travis-ci.org/minibikini/paasaa)
+[![Actions Status](https://github.com/minibikini/paasaa/workflows/CI/badge.svg)](https://github.com/minibikini/paasaa/actions)
 [![Coverage Status](https://coveralls.io/repos/github/minibikini/paasaa/badge.svg?branch=master)](https://coveralls.io/github/minibikini/paasaa?branch=master)
 [![Hex.pm](https://img.shields.io/hexpm/v/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
 [![Hex.pm](https://img.shields.io/hexpm/l/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
