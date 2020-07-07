@@ -129,8 +129,18 @@ defmodule Paasaa do
         |> normalize(str)
 
       true ->
-        [{script, 1}]
+        if allowed?(script, options) do
+          [{script, 1}]
+        else
+          @und
+        end
     end
+  end
+
+  defp allowed?(lang, options) do
+    white = options[:whitelist]
+    black = options[:blacklist]
+    (Enum.empty?(white) || Enum.member?(white, lang)) && !Enum.member?(black, lang)
   end
 
   @doc """
@@ -189,7 +199,7 @@ defmodule Paasaa do
       languages
     else
       Enum.filter(languages, fn {lang, _} ->
-        (Enum.empty?(white) || Enum.member?(white, lang)) && !Enum.member?(black, lang)
+        allowed?(lang, options)
       end)
     end
   end

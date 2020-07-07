@@ -68,6 +68,9 @@ defmodule PaasaaTest do
     test "should accept `whitelist` for different scripts" do
       result = Paasaa.detect(@some_hebrew, whitelist: ["eng"])
       assert result == "und"
+
+      result = Paasaa.detect("熊生活在森林中，不喜歡人。", whitelist: ["eng", "jpn"])
+      assert result == "und"
     end
 
     test "should accept `:min_length`" do
