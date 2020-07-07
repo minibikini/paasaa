@@ -36,13 +36,13 @@ defmodule Paasaa.Mixfile do
   defp deps do
     [
       {:ex_doc, "~> 0.12", only: :dev},
-      {:mix_test_watch, "~> 0.2", only: :dev},
+      {:mix_test_watch, "~> 1.0.2", only: :dev},
       {:benchfella, "~> 0.3.0", only: :dev},
-      {:credo, "~> 1.1.0", only: [:dev, :test]},
+      {:credo, "~> 1.4.0", only: [:dev, :test]},
       {:excoveralls, "~> 0.5", only: :test},
       {:jsx, "~> 2.10", only: :dev},
       {:tesla, "~> 1.3.0", only: :dev},
-      {:dialyxir, "~> 0.5.0", only: [:dev]}
+      {:dialyxir, "~> 1.0.0", only: [:dev]}
     ]
   end
 
