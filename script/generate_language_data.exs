@@ -1,6 +1,6 @@
 ####### Languages ########
 
-languages_url = "https://raw.githubusercontent.com/wooorm/franc/master/packages/franc/data.json"
+languages_url = "https://raw.githubusercontent.com/wooorm/franc/main/packages/franc/data.json"
 
 {:ok, %{status: 200, body: body}} = Tesla.get(languages_url)
 
@@ -26,8 +26,7 @@ File.write!("./lib/paasaa/languages.ex", languages_ex ++ "\n")
 
 ######## Scripts ########
 
-scripts_url =
-  "https://raw.githubusercontent.com/wooorm/franc/master/packages/franc/expressions.js"
+scripts_url = "https://raw.githubusercontent.com/wooorm/franc/main/packages/franc/expressions.js"
 
 {:ok, %{status: 200, body: body}} = Tesla.get(scripts_url)
 

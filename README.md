@@ -36,9 +36,9 @@ Detect language and return a scored list of languages:
 iex> Paasaa.all("Detect this!")
 [
   {"eng", 1.0},
-  {"sco", 0.8668304668304668},
-  {"nob", 0.6054054054054054},
-  {"swe", 0.5921375921375922},
+  {"sco", 0.8675529295913343},
+  {"nob", 0.6065977351058591},
+  {"swe", 0.5923190546528804},
   ...
 ]
 ```
@@ -52,7 +52,7 @@ mix bench
 ## Update Language Data
 
 ```shell
-mix run script/generate_language_data.ex
+mix run script/generate_language_data.exs
 ```
 
 ## Derivation
