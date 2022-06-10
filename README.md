@@ -15,7 +15,7 @@ Add `paasaa` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:paasaa, "~> 0.5.0"}]
+  [{:paasaa, "~> 0.6.0"}]
 end
 ```
 
