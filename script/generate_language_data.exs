@@ -9,9 +9,6 @@ languages_url = "https://raw.githubusercontent.com/wooorm/franc/main/packages/fr
 
 {:ok, %{status: 200, body: body}} = Tesla.get(languages_url)
 
-# "/** @type {Record<string, Record<string, string>>} */\nexport const data = " <> raw = body
-
-# languages = raw
 languages = Regex.replace(~r/^.*=\s?/sU, body, "")
 |> String.replace(~r/\s*(\w+):/, "\n  \"\\1\":")
 |> String.replace(~r/'/, "\"")
