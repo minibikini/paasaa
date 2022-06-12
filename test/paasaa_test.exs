@@ -1,19 +1,11 @@
 defmodule PaasaaTest do
   use ExUnit.Case, async: true
 
-  alias Paasaa.Support.Fixtures
+  import Paasaa.Support.Fixtures
 
   doctest Paasaa
 
-  @magic_number 41
-  @magic_language "pol"
   @some_hebrew "הפיתוח הראשוני בשנות ה־80 התמקד בגנו ובמערכת הגרפית"
-
-  def fixtures, do: Fixtures.fixtures()
-
-  test "magic stuff" do
-    assert @magic_language != Paasaa.detect(Enum.at(fixtures(), @magic_number))
-  end
 
   describe "Paasaa.detect" do
     test "should work on unique-scripts with many latin characters" do
@@ -49,7 +41,7 @@ defmodule PaasaaTest do
     end
 
     test "should accept `blacklist`" do
-      str = fixtures() |> Enum.at(@magic_number)
+      str = fixtures() |> get_in(["eng", "fixture"])
 
       language = Paasaa.detect(str)
 
@@ -57,12 +49,9 @@ defmodule PaasaaTest do
     end
 
     test "should accept `whitelist`" do
-      result =
-        fixtures()
-        |> Enum.at(@magic_number)
-        |> Paasaa.detect(whitelist: [@magic_language])
-
-      assert result == @magic_language
+      assert "pol" =
+               "Pošto je priznavanje urođenog dostojanstva i jednakih i neotuđivih prava svih članova ljudske porodice temelj slobode, pravde i mira u svetu;\npošto je nepoštovanje i preziranje prava čoveka vodilo var"
+               |> Paasaa.detect(whitelist: ["pol"])
     end
 
     test "should accept `whitelist` for different scripts" do
@@ -110,23 +99,16 @@ defmodule PaasaaTest do
   end
 
   describe "algorithm" do
-    @support Fixtures.support()
-             |> Enum.take(10)
-             |> Enum.with_index()
+    fixtures()
+    |> Enum.each(fn {language, %{"iso6393" => iso6393, "fixture" => fixture}} ->
+      @iso6393 iso6393
+      @fixture fixture
+      test "should classify #{language} with > 98% certainty" do
+        result = Paasaa.all(@fixture)
 
-    Enum.each(@support, fn {language, index} ->
-      @language language
-      @index index
+        {_, percent} = Enum.find(result, {"no-match", 0}, fn {lang, _pct} -> lang == @iso6393 end)
 
-      test "should classify #{language["name"]} (#{language["udhr"]})" do
-        result =
-          fixtures()
-          |> Enum.at(@index)
-          |> Paasaa.all()
-
-        [{lang_name, _} | _] = result
-
-        assert lang_name == @language["iso6393"]
+        assert percent > 0.98
 
         Enum.each(result, fn {_, score} ->
           assert score <= 1 && score >= 0
