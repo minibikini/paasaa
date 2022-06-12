@@ -1,6 +1,9 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
 
 jobs:
   test:
@@ -19,7 +22,7 @@ jobs:
           - otp: 24.0
             elixir: 1.10.4
           - otp: 23.3
-            elixir: 1.8.2
+            elixir: 1.8.2 
           - otp: 23.3
             elixir: 1.9.4
           - otp: 21.3
