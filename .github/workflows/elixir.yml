@@ -4,50 +4,82 @@ on: [push, pull_request]
 
 jobs:
   test:
+    runs-on: ubuntu-latest
     name: mix test (OTP ${{matrix.otp}} | Elixir ${{matrix.elixir}})
     strategy:
+      fail-fast: false
       matrix:
-        otp: [21.x, 22.x]
-        elixir: [1.8.x, 1.9.x]
-    runs-on: ubuntu-latest
+        otp: [20.3, 21.3, 22.3, 23.3, 24.0]
+        elixir: [1.8.2, 1.9.4, 1.10.4, 1.11.4, 1.12.2, 1.13.1]
+        exclude:
+          - otp: 24.0
+            elixir: 1.8.2
+          - otp: 24.0
+            elixir: 1.9.4
+          - otp: 24.0
+            elixir: 1.10.4
+          - otp: 23.3
+            elixir: 1.8.2
+          - otp: 23.3
+            elixir: 1.9.4
+          - otp: 21.3
+            elixir: 1.12.2
+          - otp: 21.3
+            elixir: 1.13.1
+          - otp: 20.3
+            elixir: 1.10.4
+          - otp: 20.3
+            elixir: 1.11.4
+          - otp: 20.3
+            elixir: 1.12.2
+          - otp: 20.3
+            elixir: 1.13.1
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-elixir@v1.0.0
-      with:
-        otp-version: ${{matrix.otp}}
-        elixir-version: ${{matrix.elixir}}
-    - name: Install Dependencies
-      run: |
-        mix local.rebar --force
-        mix local.hex --force
-        mix deps.get
-    - name: Run Tests
-      run: mix test --trace
+      - uses: actions/checkout@v2.3.1
+        with:
+          fetch-depth: 0
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
+      - name: Install Dependencies
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          mix deps.compile
+      - name: Compile        
+        run: mix compile --warnings-as-errors        
+      - name: Run Tests
+        run: mix test --trace
 
   format:
     runs-on: ubuntu-latest
     container:
-      image: elixir:1.9-slim
+      image: elixir:1.13-slim
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Install Dependencies
       run: |
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
+        mix deps.compile
     - name: Check Format
       run: mix format --check-formatted --dry-run
 
   credo:
     runs-on: ubuntu-latest
     container:
-      image: elixir:1.9-slim
+      image: elixir:1.13-slim
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Install Dependencies
       run: |
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
+        mix deps.compile
     - name: Run Credo
       run: mix credo --strict
