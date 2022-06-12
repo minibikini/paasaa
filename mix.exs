@@ -5,7 +5,7 @@ defmodule Paasaa.Mixfile do
     [
       app: :paasaa,
       version: "0.5.1",
-      elixir: "~> 1.8",
+      elixir: "~> 1.10",
       description: description(),
       package: package(),
       deps: deps(),
