@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     name: mix test (OTP ${{matrix.otp}} | Elixir ${{matrix.elixir}})
     strategy:
       fail-fast: false
