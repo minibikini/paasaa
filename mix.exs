@@ -42,7 +42,7 @@ defmodule Paasaa.Mixfile do
       {:excoveralls, "~> 0.16.0", only: :test},
       {:jsx, "~> 3.1.0", only: :dev},
       {:tesla, "~> 1.6.0", only: :dev},
-      {:dialyxir, "~> 1.3.0", only: [:dev]}
+      {:dialyxir, "~> 1.4.0", only: [:dev]}
     ]
   end
 
