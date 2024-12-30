@@ -33,7 +33,7 @@ jobs:
             elixir: 1.14.x            
 
     steps:
-      - uses: actions/checkout@v3.6.0
+      - uses: actions/checkout@v4.1.6
         with:
           fetch-depth: 0
       - uses: erlef/setup-beam@v1
@@ -57,7 +57,7 @@ jobs:
     container:
       image: elixir:1.13-slim
     steps:
-    - uses: actions/checkout@v3.6.0
+    - uses: actions/checkout@v4.1.6
     - name: Install Dependencies
       run: |
         mix local.rebar --force
@@ -72,7 +72,7 @@ jobs:
     container:
       image: elixir:1.13-slim
     steps:
-    - uses: actions/checkout@v3.6.0
+    - uses: actions/checkout@v4.1.6
     - name: Install Dependencies
       run: |
         mix local.rebar --force
