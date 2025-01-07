@@ -38,7 +38,7 @@ jobs:
   format:
     runs-on: ubuntu-latest
     container:
-      image: elixir:1.13-slim
+      image: elixir:1.18-slim
     steps:
       - uses: actions/checkout@v4.2.2
       - name: Install Dependencies
@@ -53,7 +53,7 @@ jobs:
   credo:
     runs-on: ubuntu-latest
     container:
-      image: elixir:1.13-slim
+      image: elixir:1.18-slim
     steps:
       - uses: actions/checkout@v4.2.2
       - name: Install Dependencies
