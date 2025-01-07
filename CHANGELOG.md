@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Drop support for Elixir v1.17 and lower. Minimum supported version is now Elixir v1.18.
+
 ## 0.6.0 - 2022-06-12
 
 ### Added
@@ -7,6 +13,7 @@
 - Adds parsing of the `data.js` file to `generate_language_data.exs` script.
 
 ### Changed
+
 - Drops support for Elixir v1.9 and lower.
 - Updates `languages_url` target in `generate_language_data.exs` script so it downloads `data.js` (the old `data.json` file was removed in <https://github.com/wooorm/franc/commit/556d2a7ba3375cb04e7f6a94b4f5b540b55e9488>).
 - Refactors script to use `:jsx.decode()` to decode the JSON instead of `Jason` because `Jason` is not a direct dependency of `paasaa`.
@@ -37,4 +44,3 @@
 ### Changed
 
 - Update language data
-
