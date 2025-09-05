@@ -26,7 +26,7 @@ After you are done, run `mix deps.get` in your shell to fetch and compile **Paas
 Detect a language:
 
 ```elixir
-iex> Paasaa.detect "Detect this!"
+iex> Paasaa.detect("Detect this!")
 "eng"
 ```
 
@@ -42,6 +42,10 @@ iex> Paasaa.all("Detect this!")
   ...
 ]
 ```
+
+## Supported Languages
+
+For a full list of supported languages, please see [LANGUAGES.md](LANGUAGES.md).
 
 ## Benchmark
 
@@ -62,6 +66,10 @@ mix run script/generate_language_data.exs
 ## License
 
 [MIT] © [Egor Kislitsyn]
+
+## Contributing
+
+Contributions are welcome! Please feel free to open an issue or submit a pull request on [GitHub](https://github.com/minibikini/paasaa).
 
 <!-- Definitions -->
 
