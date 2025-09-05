@@ -17,3 +17,5 @@ erl_crash.dump
 *.ez
 bench/snapshots
 .elixir_ls
+
+.DS_Store
