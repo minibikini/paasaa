@@ -39,7 +39,7 @@ defmodule Paasaa.Mixfile do
       {:credo, "~> 1.7.0", only: [:dev, :test]},
       {:excoveralls, "~> 0.18.3", only: :test},
       {:jsx, "~> 3.1.0", only: :dev},
-      {:tesla, "~> 1.13.2", only: :dev},
+      {:req, "~> 0.5.15"},
       {:dialyxir, "~> 1.4.3", only: [:dev]}
     ]
   end
