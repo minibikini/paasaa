@@ -5,7 +5,7 @@
 [![Hex.pm](https://img.shields.io/hexpm/v/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
 [![Hex.pm](https://img.shields.io/hexpm/l/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
 
-Natural language detection for Elixir
+Paasaa is an Elixir library for robust natural language and script detection. It achieves this through statistical analysis of character n-grams and Unicode script properties, without relying on AI. It helps in tasks like text processing, natural language understanding, or internationalization by accurately identifying the writing system and human language of a given text.
 
 [API Documentation] | [Hex Package]
 
@@ -41,6 +41,13 @@ iex> Paasaa.all("Detect this!")
   {"nno", 0.5525933107125545},
   ...
 ]
+```
+
+Detect a script:
+
+```elixir
+iex> Paasaa.detect_script("Detect this!")
+{"Latin", 0.8333333333333334}
 ```
 
 ## Supported Languages
