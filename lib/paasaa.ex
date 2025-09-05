@@ -9,8 +9,6 @@ defmodule Paasaa do
 
   """
 
-  @scripts Paasaa.Data.scripts()
-
   @languages Paasaa.Data.languages()
 
   @max_difference 300
@@ -160,7 +158,7 @@ defmodule Paasaa do
   def detect_script(str) do
     len = String.length(str)
 
-    @scripts
+    Paasaa.Data.scripts()
     |> Enum.map(fn {name, re} -> {name, get_occurrence(str, re, len)} end)
     |> Enum.max_by(fn {_, count} -> count end)
   end

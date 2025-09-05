@@ -7,13 +7,14 @@
 
 languages_url = "https://raw.githubusercontent.com/wooorm/franc/main/packages/franc/data.js"
 
-{:ok, %{status: 200, body: body}} = Tesla.get(languages_url)
+%{body: body} = Req.get!(languages_url)
 
-languages = Regex.replace(~r/^.*=\s?/sU, body, "")
-|> String.replace(~r/\s*(\w+):/, "\n  \"\\1\":")
-|> String.replace(~r/'/, "\"")
-|> :jsx.decode()
-|> inspect(limit: :infinity)
+languages =
+  Regex.replace(~r/^.*=\s?/sU, body, "")
+  |> String.replace(~r/\s*(\w+):/, "\n  \"\\1\":")
+  |> String.replace(~r/'/, "\"")
+  |> :jsx.decode()
+  |> inspect(limit: :infinity)
 
 languages_ex =
   """
@@ -34,7 +35,7 @@ File.write!("./lib/paasaa/languages.ex", languages_ex ++ "\n")
 
 scripts_url = "https://raw.githubusercontent.com/wooorm/franc/main/packages/franc/expressions.js"
 
-{:ok, %{status: 200, body: body}} = Tesla.get(scripts_url)
+%{body: body} = Req.get!(scripts_url)
 
 scripts =
   Regex.replace(~r/^.*=\s?/sU, body, "")
