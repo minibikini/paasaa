@@ -54,12 +54,6 @@ iex> Paasaa.detect_script("Detect this!")
 
 For a full list of supported languages, please see [LANGUAGES.md](LANGUAGES.md).
 
-## Benchmark
-
-```shell
-mix bench
-```
-
 ## Update Language Data
 
 ```shell
@@ -80,7 +74,7 @@ Contributions are welcome! Please feel free to open an issue or submit a pull re
 
 <!-- Definitions -->
 
-[Api Documentation]: https://hexdocs.pm/paasaa/Paasaa.html
+[Api Documentation]: https://hexdocs.pm/paasaa/
 [Hex Package]: https://hex.pm/packages/paasaa
 [Franc]: https://github.com/wooorm/franc/
 [Titus Wormer]: http://wooorm.com/
