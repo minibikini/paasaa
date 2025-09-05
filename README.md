@@ -36,9 +36,9 @@ Detect language and return a scored list of languages:
 iex> Paasaa.all("Detect this!")
 [
   {"eng", 1.0},
-  {"sco", 0.8675529295913343},
-  {"nob", 0.6065977351058591},
-  {"swe", 0.5923190546528804},
+  {"sco", 0.8230731943771207},
+  {"nob", 0.6030053320407174},
+  {"nno", 0.5525933107125545},
   ...
 ]
 ```
