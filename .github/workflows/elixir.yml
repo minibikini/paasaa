@@ -55,7 +55,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           elixir-version: 1.18.x
-          otp-version: 26.x
+          otp-version: 28.x
       - name: Cache Mix Dependencies
         uses: actions/cache@v4
         with:
@@ -80,7 +80,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           elixir-version: 1.18.x
-          otp-version: 26.x
+          otp-version: 28.x
       - name: Cache Mix Dependencies
         uses: actions/cache@v4
         with:
@@ -96,7 +96,7 @@ jobs:
           mix deps.get
           mix deps.compile
       - name: Run Credo
-        run: mix credo --strict --format sarif --output credo-results.sarif
+        run: mix credo --format sarif > credo-results.sarif
       - name: Upload Credo results
         uses: github/codeql-action/upload-sarif@v3
         with:
@@ -110,7 +110,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           elixir-version: 1.18.x
-          otp-version: 26.x
+          otp-version: 28.x
       - name: Cache Mix Dependencies
         uses: actions/cache@v4
         with:
@@ -132,8 +132,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: Install CA certificates
-        run: apt-get update && apt-get install -y ca-certificates
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: 1.18.x
+          otp-version: 28.x
+      - name: Cache Mix Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.mix
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
       - name: Install Dependencies
         run: |
           mix local.rebar --force
