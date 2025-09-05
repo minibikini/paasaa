@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         otp: [25.x, 26.x, 27.x, 28.x]
-        elixir: [1.18.x, 1.19.x]
+        elixir: [1.18.x]
 
     steps:
       - uses: actions/checkout@v4.2.2
