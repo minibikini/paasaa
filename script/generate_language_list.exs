@@ -21,6 +21,7 @@ defmodule LanguageListGenerator do
         case IsoLang.get(code) do
           {:ok, %{name: name}} ->
             "| #{code} | #{name} |"
+
           _ ->
             "| #{code} | Unknown Language |"
         end
