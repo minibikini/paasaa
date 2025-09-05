@@ -11,12 +11,6 @@ defmodule Paasaa.Mixfile do
       package: package(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test
-      ],
       # Docs
       name: "Paasaa",
       source_url: "https://github.com/minibikini/paasaa",
@@ -35,6 +29,17 @@ defmodule Paasaa.Mixfile do
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
+
+  def cli do
+    [
+      preferred_envs: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
+    ]
+  end
 
   defp deps do
     [
