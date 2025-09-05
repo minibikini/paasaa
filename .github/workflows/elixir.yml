@@ -28,6 +28,15 @@ jobs:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
 
+      - name: Cache Mix Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.mix
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
+
       - name: Install Dependencies
         run: |
           mix local.rebar --force
@@ -41,12 +50,20 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
-    container:
-      image: elixir:1.18-slim
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: Install CA certificates
-        run: apt-get update && apt-get install -y ca-certificates
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: 1.18.x
+          otp-version: 26.x
+      - name: Cache Mix Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.mix
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
       - name: Install Dependencies
         run: |
           mix local.rebar --force
@@ -58,12 +75,20 @@ jobs:
 
   credo:
     runs-on: ubuntu-latest
-    container:
-      image: elixir:1.18-slim
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: Install CA certificates
-        run: apt-get update && apt-get install -y ca-certificates
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: 1.18.x
+          otp-version: 26.x
+      - name: Cache Mix Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.mix
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
       - name: Install Dependencies
         run: |
           mix local.rebar --force
@@ -80,12 +105,20 @@ jobs:
 
   unused-deps:
     runs-on: ubuntu-latest
-    container:
-      image: elixir:1.18-slim
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: Install CA certificates
-        run: apt-get update && apt-get install -y ca-certificates
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: 1.18.x
+          otp-version: 26.x
+      - name: Cache Mix Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.mix
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
       - name: Install Dependencies
         run: |
           mix local.rebar --force
@@ -97,8 +130,6 @@ jobs:
 
   dialyzer:
     runs-on: ubuntu-latest
-    container:
-      image: elixir:1.18-slim
     steps:
       - uses: actions/checkout@v4.2.2
       - name: Install CA certificates
