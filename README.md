@@ -7,7 +7,7 @@
 
 Paasaa is an Elixir library for robust natural language and script detection. It achieves this through statistical analysis of character n-grams and Unicode script properties, without relying on AI. It helps in tasks like text processing, natural language understanding, or internationalization by accurately identifying the writing system and human language of a given text.
 
-[API Documentation](https://hexdocs.pm/paasaa/) | [https://hex.pm/packages/paasaa]
+[API Documentation](https://hexdocs.pm/paasaa/) | (https://hex.pm/packages/paasaa)
 
 ## Installation
 
@@ -85,15 +85,9 @@ iex> Paasaa.detect("Привет", min_length: 6)
 
 For a full list of supported languages, please see [LANGUAGES.md](https://www.google.com/search?q=LANGUAGES.md).
 
-## Update Language Data
-
-```shell
-mix run script/generate_language_data.exs
-```
-
 ## Contributing
 
-Contributions are welcome\! Please feel free to open an issue or submit a pull request on [GitHub](https://github.com/minibikini/paasaa).
+Contributions are welcome! Please feel free to open an issue or submit a pull request on [GitHub](https://github.com/minibikini/paasaa).
 
 If you are updating the language data, you can regenerate the necessary modules with the following command:
 
