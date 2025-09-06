@@ -122,7 +122,7 @@ defmodule Paasaa do
 
       Map.has_key?(@languages, script) ->
         str
-        |> get_clean_trigrams
+        |> get_clean_trigrams()
         |> get_distances(@languages[script], options)
         |> normalize(str)
 
@@ -216,14 +216,12 @@ defmodule Paasaa do
     end)
   end
 
-  # trigram stuff
-
   @spec get_clean_trigrams(String.t()) :: result
   defp get_clean_trigrams(str) do
     str
-    |> clean
-    |> pad
-    |> n_grams
+    |> clean()
+    |> pad()
+    |> n_grams()
     |> Enum.reduce(%{}, fn trigram, acc ->
       count = (acc[trigram] && acc[trigram] + 1) || 1
       Map.put(acc, trigram, count)

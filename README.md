@@ -1,13 +1,13 @@
 # Paasaa
 
-[![Actions Status](https://github.com/minibikini/paasaa/workflows/CI/badge.svg)](https://github.com/minibikini/paasaa/actions)
+[![Elixir CI](https://github.com/minibikini/paasaa/actions/workflows/elixir.yml/badge.svg)](https://github.com/minibikini/paasaa/actions/workflows/elixir.yml)
 [![Coverage Status](https://coveralls.io/repos/github/minibikini/paasaa/badge.svg?branch=master)](https://coveralls.io/github/minibikini/paasaa?branch=master)
 [![Hex.pm](https://img.shields.io/hexpm/v/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
 [![Hex.pm](https://img.shields.io/hexpm/l/paasaa.svg?maxAge=2592000)](https://hex.pm/packages/paasaa)
 
 Paasaa is an Elixir library for robust natural language and script detection. It achieves this through statistical analysis of character n-grams and Unicode script properties, without relying on AI. It helps in tasks like text processing, natural language understanding, or internationalization by accurately identifying the writing system and human language of a given text.
 
-[API Documentation] | [Hex Package]
+[API Documentation](https://hexdocs.pm/paasaa/) | [Hex Package](https://hex.pm/packages/paasaa)
 
 ## Installation
 
@@ -50,11 +50,46 @@ iex> Paasaa.detect_script("Detect this!")
 {"Latin", 0.8333333333333334}
 ```
 
+### Advanced Usage with Options
+
+The `detect/2` and `all/2` functions accept a keyword list of options to control their behavior.
+
+**Whitelist and Blacklist Languages**
+
+You can restrict the set of possible languages. This is useful if you already know the text must be one of a few languages, or you want to exclude a common false positive.
+
+```elixir
+# Exclude English to find the next most likely language
+iex> Paasaa.detect("Detect this!", blacklist: ["eng"])
+"sco"
+
+# Only consider Polish and Serbian
+iex> text = "Pošto je priznavanje urođenog dostojanstva i jednakih i neotuđivih prava..."
+iex> Paasaa.detect(text, whitelist: ["pol", "srp"])
+"srp"
+```
+
+**Set Minimum Text Length**
+
+By default, Paasaa returns `"und"` for very short strings. You can adjust this threshold with `:min_length`.
+
+```elixir
+iex> Paasaa.detect("Привет", min_length: 10)
+"und"
+
+iex> Paasaa.detect("Привет", min_length: 6)
+"rus"
+```
+
 ## Supported Languages
 
 For a full list of supported languages, please see [LANGUAGES.md](LANGUAGES.md).
 
-## Update Language Data
+## Contributing
+
+Contributions are welcome! Please feel free to open an issue or submit a pull request on [GitHub](https://github.com/minibikini/paasaa).
+
+If you are updating the language data, you can regenerate the necessary modules with the following command:
 
 ```shell
 mix run script/generate_language_data.exs
@@ -62,21 +97,8 @@ mix run script/generate_language_data.exs
 
 ## Derivation
 
-**Paasaa** is a derivative work from [Franc][] (JavaScript, MIT) by [Titus Wormer].
+**Paasaa** is a derivative work from [Franc](https://github.com/wooorm/franc/) (JavaScript, MIT) by Titus Wormer.
 
 ## License
 
-[MIT] © [Egor Kislitsyn]
-
-## Contributing
-
-Contributions are welcome! Please feel free to open an issue or submit a pull request on [GitHub](https://github.com/minibikini/paasaa).
-
-<!-- Definitions -->
-
-[Api Documentation]: https://hexdocs.pm/paasaa/
-[Hex Package]: https://hex.pm/packages/paasaa
-[Franc]: https://github.com/wooorm/franc/
-[Titus Wormer]: http://wooorm.com/
-[mit]: LICENSE
-[Egor Kislitsyn]: https://github.com/minibikini
+MIT © Egor Kislitsyn
