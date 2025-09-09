@@ -16,9 +16,8 @@ defmodule Paasaa.Mixfile do
       source_url: "https://github.com/minibikini/paasaa",
       homepage_url: "https://github.com/minibikini/paasaa",
       docs: [
-        # The main page in the docs
-        main: "Paasaa",
-        extras: ["README.md"]
+        main: "readme",
+        extras: ["README.md", "LANGUAGES.md"]
       ]
     ]
   end
