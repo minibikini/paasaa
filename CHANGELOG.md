@@ -1,10 +1,17 @@
 # Changelog
 
-## Unreleased
+## 1.0.0 - 2025-09-06
+
+After 9 years of stable service, it's finally time for v1.0.0!
+
+### Added
+
+- Added a language reference list with ISO codes and names.
 
 ### Changed
 
 - Drop support for Elixir v1.17 and lower. Minimum supported version is now Elixir v1.18.
+- Replaced `Tesla` dependency with `Req`.
 
 ## 0.6.0 - 2022-06-12
 
