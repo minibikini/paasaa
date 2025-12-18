@@ -3,11 +3,10 @@ defmodule Paasaa.Data do
 
   def scripts do
     unquote(
-      Macro.escape(
-        Enum.map(Paasaa.Scripts.get(), fn {name, expr} ->
-          {name, Regex.compile!(expr, "u")}
-        end)
-      )
+      Paasaa.Scripts.get()
+      |> Enum.map(fn {name, expr} ->
+        {name, quote(do: ~r/#{unquote(expr)}/u)}
+      end)
     )
   end
 
