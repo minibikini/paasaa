@@ -21,7 +21,7 @@ jobs:
         uses: google-github-actions/run-gemini-cli@main
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          gemini_cli_version: '0.20.2'
+          gemini_cli_version: '0.15.0'
           gemini_model: 'gemini-1.5-flash'
           extensions: |
             [
@@ -72,7 +72,7 @@ jobs:
         uses: google-github-actions/run-gemini-cli@main
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          gemini_cli_version: '0.20.2'
+          gemini_cli_version: '0.15.0'
           gemini_model: 'gemini-1.5-flash'
           extensions: |
             [
