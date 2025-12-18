@@ -21,6 +21,8 @@ jobs:
         uses: google-github-actions/run-gemini-cli@main
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_cli_version: '0.20.2'
+          gemini_model: 'gemini-1.5-flash'
           extensions: |
             [
               "https://github.com/gemini-cli-extensions/security.git"
@@ -70,6 +72,8 @@ jobs:
         uses: google-github-actions/run-gemini-cli@main
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_cli_version: '0.20.2'
+          gemini_model: 'gemini-1.5-flash'
           extensions: |
             [
               "https://github.com/gemini-cli-extensions/code-review.git"
@@ -97,41 +101,21 @@ jobs:
                     "submit_pending_pull_request_review"
                   ]
                 }
-              },
-              "tools": {
-                "core": [
-                  "run_shell_command(cat)",
-                  "run_shell_command(echo)",
-                  "run_shell_command(grep)",
-                  "run_shell_command(head)",
-                  "run_shell_command(tail)",
-                  "read_file"
-                ]
               }
             }
           prompt: |
             You are a senior software engineer expert in Elixir.
-            Your task is to review the pull request #${{ github.event.pull_request.number }} in repository ${{ github.repository }}.
+            Review the pull request with number ${{ github.event.pull_request.number }} in repository ${{ github.repository }}.
 
-            **Preparation:**
-            1. Read the `GEMINI.md` file in the root directory to understand the project context, coding standards, and review guidelines.
-            2. Use the `pull_request_read` tool to fetch the diff and details of the PR.
-
-            **Analysis:**
-            Analyze the code changes focusing on:
-            - **Correctness:** Logic errors, potential crashes, and adherence to `GEMINI.md` guidelines.
-            - **Quality:** Readability, naming conventions, and idiomatic Elixir style (piping, pattern matching).
-            - **Performance:** As per `GEMINI.md`, check for hot paths, expensive string operations, etc.
-            - **Tests:** Verify if new code is covered by tests.
-
-            **Action:**
-            1. Use `create_pending_pull_request_review` to start a review session.
-            2. Use `add_comment_to_pending_review` to leave specific, constructive comments on lines of code that need improvement.
-               - Reference specific guidelines from `GEMINI.md` if applicable.
-               - Be concise and direct.
-            3. If the code looks good, acknowledge it.
-            4. **IMPORTANT:** Do NOT report security issues here (they are handled by a separate job).
-            5. Finally, use `submit_pending_pull_request_review` to submit your review with a high-level summary.
+            1. Use the `pull_request_read` tool to get the diff and details of the PR.
+            2. Analyze the code changes for:
+               - Code quality and readability.
+               - Elixir best practices (naming, pattern matching, piping).
+               - Potential bugs or performance issues.
+            3. Do NOT report security issues in this step (they are handled separately).
+            4. Use `create_pending_pull_request_review` to start a review.
+            5. Use `add_comment_to_pending_review` to add specific comments on lines of code if necessary.
+            6. Use `submit_pending_pull_request_review` to finalize the review with a summary.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
