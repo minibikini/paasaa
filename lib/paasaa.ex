@@ -88,10 +88,10 @@ defmodule Paasaa do
       iex> Paasaa.all("Detect this!") |> Enum.take(5)
       [
         {"eng", 1.0},
-        {"sco", 0.8230731943771207},
-        {"nob", 0.6030053320407174},
-        {"nno", 0.5525933107125545},
-        {"swe", 0.508482792050412}
+        {"sco", 0.8197343453510436},
+        {"nob", 0.5977229601518026},
+        {"nno", 0.5460151802656547},
+        {"swe", 0.5037950664136622}
       ]
   """
 
@@ -122,7 +122,7 @@ defmodule Paasaa do
 
       Map.has_key?(@languages, script) ->
         str
-        |> get_clean_trigrams()
+        |> get_ranked_trigrams()
         |> get_distances(@languages[script], options)
         |> normalize(str)
 
@@ -178,10 +178,10 @@ defmodule Paasaa do
 
   @spec get_distance([String.t()], Enumerable.t()) :: number
   defp get_distance(trigrams, model) do
-    Enum.reduce(trigrams, 0, fn {name, val}, distance ->
+    Enum.reduce(trigrams, 0, fn {name, rank}, distance ->
       distance +
         if Map.has_key?(model, name) do
-          abs(val - model[name] - 1)
+          abs(rank - model[name])
         else
           @max_difference
         end
@@ -216,25 +216,23 @@ defmodule Paasaa do
     end)
   end
 
-  @spec get_clean_trigrams(String.t()) :: result
-  defp get_clean_trigrams(str) do
+  @spec get_ranked_trigrams(String.t()) :: [{String.t(), integer}]
+  defp get_ranked_trigrams(str) do
     str
     |> clean()
     |> pad()
     |> n_grams()
-    |> Enum.reduce(%{}, fn trigram, acc ->
-      count = (acc[trigram] && acc[trigram] + 1) || 1
-      Map.put(acc, trigram, count)
-    end)
-    |> Map.to_list()
+    |> Enum.frequencies()
+    |> Enum.sort_by(fn {_trigram, count} -> count end, :desc)
+    |> Enum.with_index()
+    |> Enum.map(fn {{trigram, _count}, index} -> {trigram, index} end)
   end
 
   @spec clean(str :: String.t()) :: String.t()
   defp clean(str) do
-    expression_symbols = ~r/[\x{0021}-\x{0040}]+/u
-
     str
-    |> String.replace(expression_symbols, " ")
+    # Replace non-word/symbol chars with space - significantly simplified regex
+    |> String.replace(~r/[\p{P}\p{S}\x{0021}-\x{0040}]+/u, " ")
     |> String.replace(~r/\s+/, " ")
     |> String.trim()
     |> String.downcase()
@@ -246,7 +244,7 @@ defmodule Paasaa do
   defp n_grams(str, n \\ 3) do
     str
     |> String.graphemes()
-    |> Enum.chunk_every(n, 1, :discard)
+    |> Stream.chunk_every(n, 1, :discard)
     |> Enum.map(&Enum.join/1)
   end
 end
