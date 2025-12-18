@@ -19,3 +19,7 @@ bench/snapshots
 .elixir_ls
 
 .DS_Store
+
+# gemini-cli settings
+.gemini/
+gha-creds-*.json

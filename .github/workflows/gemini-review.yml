@@ -1,0 +1,121 @@
+name: 'Gemini Code Review'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Gemini Security Analysis
+        uses: google-github-actions/run-gemini-cli@main
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          extensions: |
+            [
+              "https://github.com/gemini-cli-extensions/security.git"
+            ]
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 100
+              },
+              "mcpServers": {
+                "github": {
+                  "command": "docker",
+                  "args": [
+                    "run",
+                    "-i",
+                    "--rm",
+                    "-e",
+                    "GITHUB_PERSONAL_ACCESS_TOKEN",
+                    "ghcr.io/github/github-mcp-server:v0.18.0"
+                  ],
+                  "includeTools": [
+                    "add_comment_to_pending_review",
+                    "create_pending_pull_request_review",
+                    "pull_request_read",
+                    "submit_pending_pull_request_review"
+                  ],
+                  "env": {
+                    "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+                  }
+                }
+              },
+              "tools": {
+                "core": [
+                  "run_shell_command(cat)",
+                  "run_shell_command(echo)",
+                  "run_shell_command(grep)",
+                  "run_shell_command(head)",
+                  "run_shell_command(tail)"
+                ]
+              }
+            }
+          prompt: '/security:analyze-github-pr'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+
+      - name: Run Gemini Code Quality Review
+        uses: google-github-actions/run-gemini-cli@main
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          extensions: |
+            [
+              "https://github.com/gemini-cli-extensions/code-review.git"
+            ]
+          settings: |-
+            {
+              "model": {
+                "maxSessionTurns": 100
+              },
+              "mcpServers": {
+                "github": {
+                  "command": "docker",
+                  "args": [
+                    "run",
+                    "-i",
+                    "--rm",
+                    "-e",
+                    "GITHUB_PERSONAL_ACCESS_TOKEN",
+                    "ghcr.io/github/github-mcp-server:v0.18.0"
+                  ],
+                  "includeTools": [
+                    "add_comment_to_pending_review",
+                    "create_pending_pull_request_review",
+                    "pull_request_read",
+                    "submit_pending_pull_request_review"
+                  ],
+                  "env": {
+                    "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+                  }
+                }
+              }
+            }
+          prompt: |
+            You are a senior software engineer expert in Elixir.
+            Review the pull request with number ${{ github.event.pull_request.number }} in repository ${{ github.repository }}.
+
+            1. Use the `pull_request_read` tool to get the diff and details of the PR.
+            2. Analyze the code changes for:
+               - Code quality and readability.
+               - Elixir best practices (naming, pattern matching, piping).
+               - Potential bugs or performance issues.
+            3. Do NOT report security issues in this step (they are handled separately).
+            4. Use `create_pending_pull_request_review` to start a review.
+            5. Use `add_comment_to_pending_review` to add specific comments on lines of code if necessary.
+            6. Use `submit_pending_pull_request_review` to finalize the review with a summary.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
