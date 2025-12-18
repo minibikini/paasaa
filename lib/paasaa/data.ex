@@ -2,8 +2,12 @@ defmodule Paasaa.Data do
   @moduledoc false
 
   def scripts do
-    Paasaa.Scripts.get()
-    |> Enum.map(fn {name, expr} -> {name, Regex.compile!(expr, "u")} end)
+    unquote(
+      Paasaa.Scripts.get()
+      |> Enum.map(fn {name, expr} ->
+        {name, quote(do: ~r/#{unquote(expr)}/u)}
+      end)
+    )
   end
 
   def languages do

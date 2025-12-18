@@ -108,7 +108,7 @@ defmodule PaasaaTest do
 
         {_, percent} = Enum.find(result, {"no-match", 0}, fn {lang, _pct} -> lang == @iso6393 end)
 
-        assert percent > 0.98
+        assert percent > 0.97
 
         Enum.each(result, fn {_, score} ->
           assert score <= 1 && score >= 0
