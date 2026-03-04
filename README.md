@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=minibikini&project=paasaa&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 # Paasaa
 
 [![Elixir CI](https://github.com/minibikini/paasaa/actions/workflows/elixir.yml/badge.svg)](https://github.com/minibikini/paasaa/actions/workflows/elixir.yml)
