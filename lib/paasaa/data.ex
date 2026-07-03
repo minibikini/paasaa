@@ -8,8 +8,7 @@ defmodule Paasaa.Data do
 
   def languages do
     Paasaa.Languages.get()
-    |> Enum.map(&parse_trigrams/1)
-    |> Enum.into(%{})
+    |> Map.new(&parse_trigrams/1)
   end
 
   defp parse_trigrams({script, langs}), do: {script, parse_trigrams(langs)}
@@ -24,6 +23,6 @@ defmodule Paasaa.Data do
     trigrams_str
     |> String.split("|")
     |> Enum.with_index()
-    |> Enum.into(%{})
+    |> Map.new()
   end
 end
