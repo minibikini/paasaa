@@ -28,9 +28,9 @@ Benchee.run(
     "detect" => fn text -> Paasaa.detect(text) end
   },
   inputs: fixtures,
-  time: 1,
-  warmup: 0,
-  memory_time: 0.5,
+  time: 3,
+  warmup: 1,
+  memory_time: 1,
   print: [
     benchmarking: true,
     configuration: false,

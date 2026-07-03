@@ -4,14 +4,13 @@
 
 ### Added
 
-- Added `Paasaa.Matcher` module for compile-time pattern matching of language trigrams.
 - Added Benchee benchmark suite in `benchmarks/run.exs`.
 
 ### Performance
 
 - Pre-compiled script Unicode regular expressions at compile-time in `Paasaa.Data`.
-- Replaced runtime heap allocations of trigram maps with BEAM compile-time pattern matching.
-- Improved `Paasaa.detect/1` performance by ~5-12%.
+- Pre-compiled language trigram maps at compile-time in `Paasaa.Data`.
+- Optimized `Paasaa.get_distance/2` to perform a single `Map.get/3` lookup per trigram instead of double map lookups (`Map.has_key?/2` + `Map.get/2`), yielding a ~1.5x throughput improvement.
 
 ### Fixed
 
