@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Added `Paasaa.Matcher` module for compile-time pattern matching of language trigrams.
+- Added Benchee benchmark suite in `benchmarks/run.exs`.
+
+### Performance
+
+- Pre-compiled script Unicode regular expressions at compile-time in `Paasaa.Data`.
+- Replaced runtime heap allocations of trigram maps with BEAM compile-time pattern matching.
+- Improved `Paasaa.detect/1` performance by ~5-12%.
+
+### Fixed
+
+- Fixed typo in `mix.exs`.
+- Upgraded `credo` dependency to `1.7.19` to fix `ex_slop` compilation.
+
 ## 1.0.0 - 2025-09-06
 
 After 9 years of stable service, it's finally time for v1.0.0!
