@@ -1,6 +1,6 @@
 Benchmark
 
-Benchmark run from 2026-07-03 19:11:45.744548Z UTC
+Benchmark run from 2026-07-03 19:23:39.853377Z UTC
 
 ## System
 
@@ -65,11 +65,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">820.08</td>
-    <td style="white-space: nowrap; text-align: right">1.22 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;86.11%</td>
-    <td style="white-space: nowrap; text-align: right">1.18 ms</td>
-    <td style="white-space: nowrap; text-align: right">1.33 ms</td>
+    <td style="white-space: nowrap; text-align: right">833.30</td>
+    <td style="white-space: nowrap; text-align: right">1.20 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;87.93%</td>
+    <td style="white-space: nowrap; text-align: right">1.17 ms</td>
+    <td style="white-space: nowrap; text-align: right">1.29 ms</td>
   </tr>
 
 </table>
@@ -84,7 +84,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">820.08</td>
+    <td style="white-space: nowrap;text-align: right">833.30</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -125,11 +125,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">2.02 K</td>
-    <td style="white-space: nowrap; text-align: right">495.79 &micro;s</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;7.53%</td>
-    <td style="white-space: nowrap; text-align: right">492 &micro;s</td>
-    <td style="white-space: nowrap; text-align: right">566.44 &micro;s</td>
+    <td style="white-space: nowrap; text-align: right">2.07 K</td>
+    <td style="white-space: nowrap; text-align: right">483.91 &micro;s</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;6.69%</td>
+    <td style="white-space: nowrap; text-align: right">479.08 &micro;s</td>
+    <td style="white-space: nowrap; text-align: right">565.60 &micro;s</td>
   </tr>
 
 </table>
@@ -144,7 +144,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">2.02 K</td>
+    <td style="white-space: nowrap;text-align: right">2.07 K</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -162,7 +162,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">582.18 KB</td>
+    <td style="white-space: nowrap">576.58 KB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -185,11 +185,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">415.11</td>
-    <td style="white-space: nowrap; text-align: right">2.41 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;4.24%</td>
-    <td style="white-space: nowrap; text-align: right">2.39 ms</td>
-    <td style="white-space: nowrap; text-align: right">2.80 ms</td>
+    <td style="white-space: nowrap; text-align: right">423.60</td>
+    <td style="white-space: nowrap; text-align: right">2.36 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;3.29%</td>
+    <td style="white-space: nowrap; text-align: right">2.35 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.74 ms</td>
   </tr>
 
 </table>
@@ -204,7 +204,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">415.11</td>
+    <td style="white-space: nowrap;text-align: right">423.60</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -222,7 +222,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">5.42 MB</td>
+    <td style="white-space: nowrap">5.37 MB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -245,11 +245,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">402.42</td>
-    <td style="white-space: nowrap; text-align: right">2.48 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;3.08%</td>
-    <td style="white-space: nowrap; text-align: right">2.47 ms</td>
-    <td style="white-space: nowrap; text-align: right">2.80 ms</td>
+    <td style="white-space: nowrap; text-align: right">411.12</td>
+    <td style="white-space: nowrap; text-align: right">2.43 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;2.69%</td>
+    <td style="white-space: nowrap; text-align: right">2.43 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.66 ms</td>
   </tr>
 
 </table>
@@ -264,7 +264,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">402.42</td>
+    <td style="white-space: nowrap;text-align: right">411.12</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -282,7 +282,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">5.66 MB</td>
+    <td style="white-space: nowrap">5.65 MB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -305,11 +305,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">418.35</td>
-    <td style="white-space: nowrap; text-align: right">2.39 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;4.21%</td>
+    <td style="white-space: nowrap; text-align: right">422.18</td>
     <td style="white-space: nowrap; text-align: right">2.37 ms</td>
-    <td style="white-space: nowrap; text-align: right">2.66 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;5.29%</td>
+    <td style="white-space: nowrap; text-align: right">2.35 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.63 ms</td>
   </tr>
 
 </table>
@@ -324,7 +324,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">418.35</td>
+    <td style="white-space: nowrap;text-align: right">422.18</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -365,11 +365,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">712.97</td>
-    <td style="white-space: nowrap; text-align: right">1.40 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;4.15%</td>
-    <td style="white-space: nowrap; text-align: right">1.40 ms</td>
-    <td style="white-space: nowrap; text-align: right">1.57 ms</td>
+    <td style="white-space: nowrap; text-align: right">727.06</td>
+    <td style="white-space: nowrap; text-align: right">1.38 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;5.57%</td>
+    <td style="white-space: nowrap; text-align: right">1.36 ms</td>
+    <td style="white-space: nowrap; text-align: right">1.63 ms</td>
   </tr>
 
 </table>
@@ -384,7 +384,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">712.97</td>
+    <td style="white-space: nowrap;text-align: right">727.06</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -402,7 +402,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">1.93 MB</td>
+    <td style="white-space: nowrap">1.94 MB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -425,11 +425,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">1.64 K</td>
-    <td style="white-space: nowrap; text-align: right">608.44 &micro;s</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;5.53%</td>
-    <td style="white-space: nowrap; text-align: right">602.54 &micro;s</td>
-    <td style="white-space: nowrap; text-align: right">713.24 &micro;s</td>
+    <td style="white-space: nowrap; text-align: right">1.69 K</td>
+    <td style="white-space: nowrap; text-align: right">590.19 &micro;s</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;6.99%</td>
+    <td style="white-space: nowrap; text-align: right">589.73 &micro;s</td>
+    <td style="white-space: nowrap; text-align: right">666.17 &micro;s</td>
   </tr>
 
 </table>
@@ -444,7 +444,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">1.64 K</td>
+    <td style="white-space: nowrap;text-align: right">1.69 K</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -462,7 +462,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">711.82 KB</td>
+    <td style="white-space: nowrap">707.02 KB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -485,11 +485,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">401.83</td>
-    <td style="white-space: nowrap; text-align: right">2.49 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;6.60%</td>
-    <td style="white-space: nowrap; text-align: right">2.45 ms</td>
-    <td style="white-space: nowrap; text-align: right">3.09 ms</td>
+    <td style="white-space: nowrap; text-align: right">411.71</td>
+    <td style="white-space: nowrap; text-align: right">2.43 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;3.85%</td>
+    <td style="white-space: nowrap; text-align: right">2.41 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.82 ms</td>
   </tr>
 
 </table>
@@ -504,7 +504,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">401.83</td>
+    <td style="white-space: nowrap;text-align: right">411.71</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -522,7 +522,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">5.53 MB</td>
+    <td style="white-space: nowrap">5.50 MB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -545,11 +545,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">754.32</td>
-    <td style="white-space: nowrap; text-align: right">1.33 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;8.90%</td>
-    <td style="white-space: nowrap; text-align: right">1.30 ms</td>
-    <td style="white-space: nowrap; text-align: right">1.54 ms</td>
+    <td style="white-space: nowrap; text-align: right">782.40</td>
+    <td style="white-space: nowrap; text-align: right">1.28 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;6.29%</td>
+    <td style="white-space: nowrap; text-align: right">1.27 ms</td>
+    <td style="white-space: nowrap; text-align: right">1.51 ms</td>
   </tr>
 
 </table>
@@ -564,7 +564,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">754.32</td>
+    <td style="white-space: nowrap;text-align: right">782.40</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -582,7 +582,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">2.77 MB</td>
+    <td style="white-space: nowrap">2.78 MB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
@@ -605,11 +605,11 @@ Run Time
 
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap; text-align: right">409.33</td>
-    <td style="white-space: nowrap; text-align: right">2.44 ms</td>
-    <td style="white-space: nowrap; text-align: right">&plusmn;3.03%</td>
-    <td style="white-space: nowrap; text-align: right">2.43 ms</td>
-    <td style="white-space: nowrap; text-align: right">2.75 ms</td>
+    <td style="white-space: nowrap; text-align: right">418.45</td>
+    <td style="white-space: nowrap; text-align: right">2.39 ms</td>
+    <td style="white-space: nowrap; text-align: right">&plusmn;3.73%</td>
+    <td style="white-space: nowrap; text-align: right">2.38 ms</td>
+    <td style="white-space: nowrap; text-align: right">2.80 ms</td>
   </tr>
 
 </table>
@@ -624,7 +624,7 @@ Run Time Comparison
     <th style="text-align: right">Slower</th>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap;text-align: right">409.33</td>
+    <td style="white-space: nowrap;text-align: right">418.45</td>
     <td>&nbsp;</td>
   </tr>
 
@@ -642,7 +642,7 @@ Memory Usage
   </tr>
   <tr>
     <td style="white-space: nowrap">detect</td>
-    <td style="white-space: nowrap">5.48 MB</td>
+    <td style="white-space: nowrap">5.45 MB</td>
     <td>&nbsp;</td>
   </tr>
 </table>
