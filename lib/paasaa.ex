@@ -180,15 +180,14 @@ defmodule Paasaa do
   defp get_distance(trigrams, model) do
     Enum.reduce(trigrams, 0, fn {name, val}, distance ->
       distance +
-        if Map.has_key?(model, name) do
-          abs(val - model[name] - 1)
-        else
-          @max_difference
+        case Map.get(model, name) do
+          nil -> @max_difference
+          index -> abs(val - index - 1)
         end
     end)
   end
 
-  @spec filter_languages([String.t()], Enumerable.t()) :: Enumerable.t()
+  @spec filter_languages(Enumerable.t(), options) :: Enumerable.t()
   defp filter_languages(languages, options) do
     white = options[:whitelist]
     black = options[:blacklist]

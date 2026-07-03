@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Added Benchee benchmark suite in `benchmarks/run.exs`.
+
+### Performance
+
+- Pre-compiled script Unicode regular expressions at compile-time in `Paasaa.Data`.
+- Pre-compiled language trigram maps at compile-time in `Paasaa.Data`.
+- Optimized `Paasaa.get_distance/2` to perform a single `Map.get/3` lookup per trigram instead of double map lookups (`Map.has_key?/2` + `Map.get/2`), yielding a ~1.5x throughput improvement.
+
+### Fixed
+
+- Fixed typo in `mix.exs`.
+- Upgraded `credo` dependency to `1.7.19` to fix `ex_slop` compilation.
+
 ## 1.0.0 - 2025-09-06
 
 After 9 years of stable service, it's finally time for v1.0.0!

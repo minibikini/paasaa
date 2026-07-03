@@ -19,3 +19,7 @@ bench/snapshots
 .elixir_ls
 
 .DS_Store
+
+# Ignore generated benchmark markdown reports
+benchmarks/*.md
+scratch/

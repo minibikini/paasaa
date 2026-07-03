@@ -1,29 +1,24 @@
 defmodule Paasaa.Data do
   @moduledoc false
 
-  def scripts do
-    Paasaa.Scripts.get()
-    |> Enum.map(fn {name, expr} -> {name, Regex.compile!(expr, "u")} end)
-  end
+  @scripts Paasaa.Scripts.get()
+           |> Enum.map(fn {name, expr} -> {name, Regex.compile!(expr, "u")} end)
 
-  def languages do
-    Paasaa.Languages.get()
-    |> Enum.map(&parse_trigrams/1)
-    |> Enum.into(%{})
-  end
+  @languages Paasaa.Languages.get()
+             |> Map.new(fn {script, langs} ->
+               {script,
+                Enum.map(langs, fn {lang, trigrams_str} ->
+                  trigrams =
+                    trigrams_str
+                    |> String.split("|")
+                    |> Enum.with_index()
+                    |> Map.new()
 
-  defp parse_trigrams({script, langs}), do: {script, parse_trigrams(langs)}
+                  {lang, trigrams}
+                end)}
+             end)
 
-  defp parse_trigrams(langs) when is_map(langs) do
-    Enum.map(langs, fn {lang, trigrams} ->
-      {lang, parse_trigrams(trigrams)}
-    end)
-  end
+  def scripts, do: @scripts
 
-  defp parse_trigrams(trigrams_str) when is_binary(trigrams_str) do
-    trigrams_str
-    |> String.split("|")
-    |> Enum.with_index()
-    |> Enum.into(%{})
-  end
+  def languages, do: @languages
 end
