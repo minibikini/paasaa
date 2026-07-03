@@ -168,27 +168,26 @@ defmodule Paasaa do
     Enum.count(Regex.scan(re, str)) / str_len
   end
 
-  @spec get_distances([String.t()], Enumerable.t(), options) :: result
+  @spec get_distances([String.t()], [String.t()], options) :: result
   defp get_distances(trigrams, languages, options) do
     languages
     |> filter_languages(options)
-    |> Enum.map(fn {lang, model} -> {lang, get_distance(trigrams, model)} end)
+    |> Enum.map(fn lang -> {lang, get_distance(lang, trigrams)} end)
     |> Enum.sort(&(elem(&1, 1) < elem(&2, 1)))
   end
 
-  @spec get_distance([String.t()], Enumerable.t()) :: number
-  defp get_distance(trigrams, model) do
+  @spec get_distance(String.t(), [{String.t(), non_neg_integer}]) :: number
+  defp get_distance(lang, trigrams) do
     Enum.reduce(trigrams, 0, fn {name, val}, distance ->
       distance +
-        if Map.has_key?(model, name) do
-          abs(val - model[name] - 1)
-        else
-          @max_difference
+        case Paasaa.Matcher.match(lang, name) do
+          nil -> @max_difference
+          index -> abs(val - index - 1)
         end
     end)
   end
 
-  @spec filter_languages([String.t()], Enumerable.t()) :: Enumerable.t()
+  @spec filter_languages([String.t()], options) :: [String.t()]
   defp filter_languages(languages, options) do
     white = options[:whitelist]
     black = options[:blacklist]
@@ -196,7 +195,7 @@ defmodule Paasaa do
     if Enum.empty?(white) && Enum.empty?(black) do
       languages
     else
-      Enum.filter(languages, fn {lang, _} ->
+      Enum.filter(languages, fn lang ->
         allowed?(lang, options)
       end)
     end

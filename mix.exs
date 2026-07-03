@@ -52,6 +52,8 @@ defmodule Paasaa.Mixfile do
       {:igniter, "~> 0.6", only: [:dev, :test]},
       {:ex_doc, "~> 0.28", only: :dev},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:benchee, "~> 1.0", only: [:dev, :test]},
+      {:benchee_markdown, "~> 0.2", only: [:dev, :test]},
       {:excoveralls, "~> 0.18.3", only: :test},
       {:jsx, "~> 3.1.0", only: :dev},
       {:req, "~> 0.5.15", only: [:dev, :test]},
